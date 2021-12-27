@@ -1,0 +1,11 @@
+C:\Users\idont\source\repos\damian_raczkowski_cpc2021-2\labolatorium 2\praca domowa\DamianRaczkowskiLab2PracDom\bin\Debug\DamianRaczkowskiLab2PracDom.exe.config
+C:\Users\idont\source\repos\damian_raczkowski_cpc2021-2\labolatorium 2\praca domowa\DamianRaczkowskiLab2PracDom\bin\Debug\DamianRaczkowskiLab2PracDom.exe
+C:\Users\idont\source\repos\damian_raczkowski_cpc2021-2\labolatorium 2\praca domowa\DamianRaczkowskiLab2PracDom\bin\Debug\DamianRaczkowskiLab2PracDom.pdb
+C:\Users\idont\source\repos\damian_raczkowski_cpc2021-2\labolatorium 2\praca domowa\DamianRaczkowskiLab2PracDom\obj\Debug\DamianRaczkowskiLab2PracDom.csproj.AssemblyReference.cache
+C:\Users\idont\source\repos\damian_raczkowski_cpc2021-2\labolatorium 2\praca domowa\DamianRaczkowskiLab2PracDom\obj\Debug\DamianRaczkowskiLab2PracDom.FormMain.resources
+C:\Users\idont\source\repos\damian_raczkowski_cpc2021-2\labolatorium 2\praca domowa\DamianRaczkowskiLab2PracDom\obj\Debug\DamianRaczkowskiLab2PracDom.Properties.Resources.resources
+C:\Users\idont\source\repos\damian_raczkowski_cpc2021-2\labolatorium 2\praca domowa\DamianRaczkowskiLab2PracDom\obj\Debug\DamianRaczkowskiLab2PracDom.csproj.GenerateResource.cache
+C:\Users\idont\source\repos\damian_raczkowski_cpc2021-2\labolatorium 2\praca domowa\DamianRaczkowskiLab2PracDom\obj\Debug\DamianRaczkowskiLab2PracDom.csproj.CoreCompileInputs.cache
+C:\Users\idont\source\repos\damian_raczkowski_cpc2021-2\labolatorium 2\praca domowa\DamianRaczkowskiLab2PracDom\obj\Debug\DamianRaczkowskiLab2PracDom.exe
+C:\Users\idont\source\repos\damian_raczkowski_cpc2021-2\labolatorium 2\praca domowa\DamianRaczkowskiLab2PracDom\obj\Debug\DamianRaczkowskiLab2PracDom.pdb
+C:\Users\idont\source\repos\damian_raczkowski_cpc2021-2\labolatorium 2\praca domowa\DamianRaczkowskiLab2PracDom\obj\Debug\DamianRaczkowskiLab2PracDom.Forms.LoginForm.resources
