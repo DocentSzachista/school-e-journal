@@ -36,7 +36,14 @@ namespace Database
 
 		public override void UpdateData(string[] data, int index)
 		{
-			throw new NotImplementedException();
+			_connection.Open();
+			string updateQuery = $"UPDATE LoginData SET Password = @pwd " +
+				$"WHERE Login = @login;";
+			SqlCommand command = new SqlCommand(updateQuery, _connection);
+			command.Parameters.AddWithValue("@pwd", data[1]);
+			command.Parameters.AddWithValue("@login", data[0]);
+			command.ExecuteNonQuery();
+			_connection.Close();
 		}
 
 		public bool CheckPassword(string login, string password)

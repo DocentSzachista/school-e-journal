@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DamianRaczkowskiLab2PracDom.Forms;
 using Database;
 using Database.Enums;
 namespace DamianRaczkowskiLab2PracDom
@@ -289,7 +290,8 @@ namespace DamianRaczkowskiLab2PracDom
 
         private void zmieńHasłoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            Form changePWDForm = new ChangePasswordForm();
+            changePWDForm.Show();
         }
     }
 }
