@@ -11,6 +11,7 @@ namespace Database.Enums
     {
        // Zajecia,
         Uzytkownicy,
-        Klasy
+        Klasy,
+        Loginy
     }
 }
