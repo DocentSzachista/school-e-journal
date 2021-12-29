@@ -41,12 +41,15 @@ namespace Database
 			string updateQuery = $"UPDATE LoginData SET Password = @pwd " +
 				$"WHERE UserId = @id";
 			SqlCommand command = new SqlCommand(updateQuery, _connection);
-			command.Parameters.AddWithValue("@pwd", data[0]);
+			command.Parameters.AddWithValue("@pwd", EncryptPassword(data[0]));
 			command.Parameters.AddWithValue("@id", index);
 			command.ExecuteNonQuery();
 			_connection.Close();
 		}
-
+		private string EncryptPassword(string password)
+        {
+			return password.GetHashCode().ToString();
+        }
 		public bool CheckPassword(string login, string password)
 		{
 			try
@@ -55,7 +58,7 @@ namespace Database
 
 				string readQuery = $"SELECT Users.UserType, Users.UserId FROM LoginData " +
 								   $"JOIN Users ON Users.UserId=LoginData.UserId " +
-								   $"WHERE Login='{login}' AND Password='{password}' AND Users.UserType={(int)UserType.Admin};";
+								   $"WHERE Login='{login}' AND Password='{EncryptPassword(password)}' AND Users.UserType={(int)UserType.Admin};";
 				SqlDataAdapter dataAdapter = new SqlDataAdapter(readQuery, _connection);
 				DataTable dataTable = new DataTable();
 				dataAdapter.Fill(dataTable);
