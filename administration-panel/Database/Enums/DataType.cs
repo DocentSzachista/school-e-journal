@@ -12,7 +12,7 @@ namespace Database.Enums
        // Zajecia,
         Uzytkownicy,
         Klasy,
-        Loginy
+        Loginy,
         Zajecia
     }
 }

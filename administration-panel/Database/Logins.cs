@@ -9,7 +9,7 @@ namespace Database
 	{
 		public override void DeleteData(int index)
 		{
-			throw new NotImplementedException();
+			// No implementation will be provided
 		}
 
 		public override DataType GetDataType()
@@ -19,12 +19,19 @@ namespace Database
 
 		public override void InsertData(string[] data)
 		{
-			throw new NotImplementedException();
+			// No implementation will be provided
 		}
 
 		public override DataTable ReadData()
 		{
-			throw new NotImplementedException();
+			_connection.Open();
+			string readQuery = $"SELECT UserId, Login, Password FROM LoginData;";
+			SqlDataAdapter dataAdapter = new SqlDataAdapter(readQuery, _connection);
+			DataTable dataTable = new DataTable();
+			dataAdapter.Fill(dataTable);
+			_connection.Close();
+
+			return dataTable;
 		}
 
 		public override void UpdateData(string[] data, int index)
