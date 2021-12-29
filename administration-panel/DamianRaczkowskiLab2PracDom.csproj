@@ -50,6 +50,7 @@
     <Compile Include="Database\Enums\DataType.cs" />
     <Compile Include="Database\Enums\UserType.cs" />
     <Compile Include="Database\DAO.cs" />
+    <Compile Include="Database\Logins.cs" />
     <Compile Include="Database\Subjects.cs" />
     <Compile Include="Database\Users.cs" />
     <Compile Include="Forms\FormMain.cs">
