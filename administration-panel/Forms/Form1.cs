@@ -13,20 +13,21 @@ namespace DamianRaczkowskiLab2PracDom.Forms
 {
     public partial class ChangePasswordForm : Form
     {
-
-        public ChangePasswordForm()
+        private readonly int _userIdForPasswordChange;
+        public ChangePasswordForm(int currentUserId)
         {
+            _userIdForPasswordChange = currentUserId;
             InitializeComponent();
         }
 
         private void changePasswordButton_Click(object sender, EventArgs e)
         {
-            string userLogin = this.loginTextBox.Text;
+            //string userLogin = this.loginTextBox.Text;
             string newPWD = this.changePasswordTextBox.Text;
             Logins login = new Logins();
             
-            login.UpdateData(new[] {userLogin ,newPWD }, -1);
-
+            login.UpdateData(new[] {newPWD }, _userIdForPasswordChange);
+            this.Close();
         }
     }
 }

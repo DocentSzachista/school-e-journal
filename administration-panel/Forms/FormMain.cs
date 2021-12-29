@@ -16,9 +16,10 @@ namespace DamianRaczkowskiLab2PracDom
     {
         private IDAO _usedDataObject;
         private Dictionary<DataType, Panel> userInteractivePanels;
-        private MainMenu mainMenu;
-        public FormMain()
+        private readonly int _currentUserId;
+        public FormMain(int loggedUserId)
         {
+            this._currentUserId = loggedUserId;
             this._usedDataObject = new Users();
             InitializeComponent();
         }
@@ -290,7 +291,7 @@ namespace DamianRaczkowskiLab2PracDom
 
         private void zmieńHasłoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form changePWDForm = new ChangePasswordForm();
+            Form changePWDForm = new ChangePasswordForm(_currentUserId);
             changePWDForm.Show();
         }
     }
