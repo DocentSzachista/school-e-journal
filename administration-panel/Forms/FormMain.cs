@@ -120,8 +120,9 @@ namespace DamianRaczkowskiLab2PracDom
                         }
                     }
                     break;
-               /* case DataType.Zajecia:
-                    break;*/
+               case DataType.Zajecia:
+
+                    break;
             }
         }
 
@@ -202,12 +203,13 @@ namespace DamianRaczkowskiLab2PracDom
                     string lastName = this.textBoxLastName.Text;
                     string phoneNumber = this.textBoxPhoneNumber.Text;
                     string email = this.textBoxEmail.Text;
-                    string userType = this.comboBoxUserType.SelectedItem.ToString();
-                    if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(userType))
+                    if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email) 
+                         || this.comboBoxUserType.SelectedIndex < 0 )
                     {
                         MessageBox.Show("Nie uzupełniłeś wszystkich pól");
                         return;
                     }
+                    string userType = this.comboBoxUserType.SelectedItem.ToString();
                     string[] userData = { firstName, secondName, lastName, phoneNumber, email, userType };
                     this._usedDataObject.InsertData(userData);
                     break;

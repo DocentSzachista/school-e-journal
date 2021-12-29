@@ -15,15 +15,22 @@ namespace Database
         
         public override void DeleteData(int index)
         {
-            _connection.Open();
-            using (SqlCommand deleteProcedure = new SqlCommand("SP_DML_Users", _connection))
+            try
             {
-                deleteProcedure.CommandType = CommandType.StoredProcedure;
-                deleteProcedure.Parameters.AddWithValue("@ACTION", "DELETE");
-                deleteProcedure.Parameters.AddWithValue("userId", index);
-                deleteProcedure.ExecuteNonQuery();
+                using (SqlCommand deleteProcedure = new SqlCommand("SP_DML_Users", _connection))
+                {
+                    _connection.Open();
+                    deleteProcedure.CommandType = CommandType.StoredProcedure;
+                    deleteProcedure.Parameters.AddWithValue("@ACTION", "DELETE");
+                    deleteProcedure.Parameters.AddWithValue("userId", index);
+                    deleteProcedure.ExecuteNonQuery();
+                    _connection.Close();
+                }
             }
-            _connection.Close();
+            catch(SqlException e)
+            {
+                Console.WriteLine($"Something gone wrong with database. Message: {e.Message} ");
+            }
         }
 
         public override DataType GetDataType()
@@ -34,24 +41,36 @@ namespace Database
         public override void InsertData(string[] data)
         {
             int value = (int)(Enum.Parse(typeof(UserType), data[5]));
-           
-            using (SqlCommand insertProcedure = new SqlCommand("SP_DML_Users", _connection)   )
+            try
             {
-                insertProcedure.CommandType = CommandType.StoredProcedure;
-                insertProcedure.Parameters.AddWithValue("@firstName", data[0]);
-                insertProcedure.Parameters.AddWithValue("@secondName", data[1]);
-                insertProcedure.Parameters.AddWithValue("@lastName", data[2]);
-                insertProcedure.Parameters.AddWithValue("@PhoneNumber", data[3]);
-                insertProcedure.Parameters.AddWithValue("@email", data[4]);
-                insertProcedure.Parameters.AddWithValue("@userType",  value);
-                insertProcedure.Parameters.AddWithValue("@ACTION", "INSERT");
-                _connection.Open();
-                insertProcedure.ExecuteNonQuery();
-                _connection.Close();
+                using (SqlCommand insertProcedure = new SqlCommand("SP_DML_Users", _connection))
+                {
+                    insertProcedure.CommandType = CommandType.StoredProcedure;
+                    insertProcedure.Parameters.AddWithValue("@firstName", data[0]);
+                    insertProcedure.Parameters.AddWithValue("@secondName", data[1]);
+                    insertProcedure.Parameters.AddWithValue("@lastName", data[2]);
+                    insertProcedure.Parameters.AddWithValue("@PhoneNumber", data[3]);
+                    insertProcedure.Parameters.AddWithValue("@email", data[4]);
+                    insertProcedure.Parameters.AddWithValue("@userType", value);
+                    insertProcedure.Parameters.AddWithValue("@ACTION", "INSERT");
+                    insertProcedure.Parameters.AddWithValue("@password", "PPPP");
+                    _connection.Open();
+                    insertProcedure.ExecuteNonQuery();
+                    _connection.Close();
+                }
             }
-
+            catch(SqlException e)
+            {
+                Console.WriteLine($"Wystąpił nieoczekiwany bład po stronie sql. Błąd: {e.Message} " );
+                if (_connection.State != ConnectionState.Closed)
+                    _connection.Close();
+            }
+            
         }
-
+        /// <summary>
+        /// Wyświetl wszystkich użytkowników 
+        /// </summary>
+        /// <returns></returns>
         public override DataTable ReadData()
         {
             _connection.Open();

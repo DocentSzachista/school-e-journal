@@ -1,7 +1,4 @@
-﻿/*
- * Wyjęte na razie ze scope'u aplikacji :/ 
- * 
- * using Database.Enums;
+﻿using Database.Enums;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -45,4 +42,3 @@ namespace Database
         }
     }
 }
-*/

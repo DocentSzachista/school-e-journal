@@ -13,5 +13,6 @@ namespace Database.Enums
         Uzytkownicy,
         Klasy,
         Loginy
+        Zajecia
     }
 }
