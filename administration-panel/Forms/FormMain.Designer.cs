@@ -55,11 +55,15 @@ namespace DamianRaczkowskiLab2PracDom
             this.labelClassName = new System.Windows.Forms.Label();
             this.dataGridViewTeachers = new System.Windows.Forms.DataGridView();
             this.textBoxClassName = new System.Windows.Forms.TextBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.użytkownikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zmieńHasłoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsers)).BeginInit();
             this.panelUserData.SuspendLayout();
             this.panelButtons.SuspendLayout();
             this.panelClassData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeachers)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridViewUsers
@@ -70,7 +74,7 @@ namespace DamianRaczkowskiLab2PracDom
             this.dataGridViewUsers.AllowUserToResizeRows = false;
             this.dataGridViewUsers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewUsers.Location = new System.Drawing.Point(12, 12);
+            this.dataGridViewUsers.Location = new System.Drawing.Point(12, 32);
             this.dataGridViewUsers.Name = "dataGridViewUsers";
             this.dataGridViewUsers.Size = new System.Drawing.Size(776, 267);
             this.dataGridViewUsers.TabIndex = 0;
@@ -82,7 +86,7 @@ namespace DamianRaczkowskiLab2PracDom
             this.comboBoxViewChanger.Items.AddRange(new object[] {
             "Użytkownicy",
             "Klasy"});
-            this.comboBoxViewChanger.Location = new System.Drawing.Point(667, 285);
+            this.comboBoxViewChanger.Location = new System.Drawing.Point(670, 305);
             this.comboBoxViewChanger.Name = "comboBoxViewChanger";
             this.comboBoxViewChanger.Size = new System.Drawing.Size(121, 21);
             this.comboBoxViewChanger.TabIndex = 2;
@@ -103,7 +107,7 @@ namespace DamianRaczkowskiLab2PracDom
             this.panelUserData.Controls.Add(this.textBoxEmail);
             this.panelUserData.Controls.Add(this.textBoxLastName);
             this.panelUserData.Controls.Add(this.textBoxFirstName);
-            this.panelUserData.Location = new System.Drawing.Point(12, 332);
+            this.panelUserData.Location = new System.Drawing.Point(12, 350);
             this.panelUserData.Name = "panelUserData";
             this.panelUserData.Size = new System.Drawing.Size(431, 215);
             this.panelUserData.TabIndex = 3;
@@ -171,7 +175,7 @@ namespace DamianRaczkowskiLab2PracDom
             // 
             // textBoxSecondName
             // 
-            this.textBoxSecondName.Location = new System.Drawing.Point(238, 14);
+            this.textBoxSecondName.Location = new System.Drawing.Point(237, 14);
             this.textBoxSecondName.Name = "textBoxSecondName";
             this.textBoxSecondName.Size = new System.Drawing.Size(90, 20);
             this.textBoxSecondName.TabIndex = 6;
@@ -230,7 +234,7 @@ namespace DamianRaczkowskiLab2PracDom
             this.panelButtons.Controls.Add(this.buttonDelete);
             this.panelButtons.Controls.Add(this.buttonUpdate);
             this.panelButtons.Controls.Add(this.buttonAdd);
-            this.panelButtons.Location = new System.Drawing.Point(558, 332);
+            this.panelButtons.Location = new System.Drawing.Point(559, 351);
             this.panelButtons.Name = "panelButtons";
             this.panelButtons.Size = new System.Drawing.Size(182, 138);
             this.panelButtons.TabIndex = 4;
@@ -281,7 +285,7 @@ namespace DamianRaczkowskiLab2PracDom
             this.panelClassData.Controls.Add(this.labelClassName);
             this.panelClassData.Controls.Add(this.dataGridViewTeachers);
             this.panelClassData.Controls.Add(this.textBoxClassName);
-            this.panelClassData.Location = new System.Drawing.Point(12, 332);
+            this.panelClassData.Location = new System.Drawing.Point(12, 350);
             this.panelClassData.Name = "panelClassData";
             this.panelClassData.Size = new System.Drawing.Size(524, 215);
             this.panelClassData.TabIndex = 5;
@@ -324,17 +328,45 @@ namespace DamianRaczkowskiLab2PracDom
             this.textBoxClassName.Size = new System.Drawing.Size(100, 20);
             this.textBoxClassName.TabIndex = 0;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.użytkownikToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(803, 24);
+            this.menuStrip1.TabIndex = 6;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // użytkownikToolStripMenuItem
+            // 
+            this.użytkownikToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.zmieńHasłoToolStripMenuItem});
+            this.użytkownikToolStripMenuItem.Name = "użytkownikToolStripMenuItem";
+            this.użytkownikToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+            this.użytkownikToolStripMenuItem.Text = "Użytkownik";
+            // 
+            // zmieńHasłoToolStripMenuItem
+            // 
+            this.zmieńHasłoToolStripMenuItem.Name = "zmieńHasłoToolStripMenuItem";
+            this.zmieńHasłoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zmieńHasłoToolStripMenuItem.Text = "Zmień hasło";
+            this.zmieńHasłoToolStripMenuItem.Click += new System.EventHandler(this.zmieńHasłoToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(803, 559);
+            this.ClientSize = new System.Drawing.Size(803, 604);
             this.Controls.Add(this.panelButtons);
             this.Controls.Add(this.comboBoxViewChanger);
             this.Controls.Add(this.dataGridViewUsers);
-            this.Controls.Add(this.panelClassData);
             this.Controls.Add(this.panelUserData);
+            this.Controls.Add(this.panelClassData);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "FormMain";
             this.Text = "Panel Administratora";
@@ -346,7 +378,10 @@ namespace DamianRaczkowskiLab2PracDom
             this.panelClassData.ResumeLayout(false);
             this.panelClassData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeachers)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -378,6 +413,9 @@ namespace DamianRaczkowskiLab2PracDom
         private System.Windows.Forms.DataGridView dataGridViewTeachers;
         private System.Windows.Forms.TextBox textBoxClassName;
         private System.Windows.Forms.Label labelTeacher;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem użytkownikToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zmieńHasłoToolStripMenuItem;
     }
 }
 

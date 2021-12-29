@@ -15,6 +15,7 @@ namespace DamianRaczkowskiLab2PracDom
     {
         private IDAO _usedDataObject;
         private Dictionary<DataType, Panel> userInteractivePanels;
+        private MainMenu mainMenu;
         public FormMain()
         {
             this._usedDataObject = new Users();
@@ -23,6 +24,7 @@ namespace DamianRaczkowskiLab2PracDom
 
         private void FormMain_Load(object sender, EventArgs e)
         {
+         
             this.userInteractivePanels = new Dictionary<DataType, Panel>();
             userInteractivePanels.Add(DataType.Uzytkownicy, this.panelUserData);
             userInteractivePanels.Add(DataType.Klasy, this.panelClassData);
@@ -285,5 +287,9 @@ namespace DamianRaczkowskiLab2PracDom
             }
         }
 
+        private void zmieńHasłoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
