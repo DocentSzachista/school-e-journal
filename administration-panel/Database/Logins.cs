@@ -49,18 +49,25 @@ namespace Database
 
 		public bool CheckPassword(string login, string password)
 		{
-			_connection.Open();
+			try
+			{
+				_connection.Open();
 
-			string readQuery = $"SELECT Users.UserType, Users.UserId FROM LoginData " +
-							   $"JOIN Users ON Users.UserId=LoginData.UserId " +
-							   $"WHERE Login='{login}' AND Password='{password}' AND Users.UserType={(int)UserType.Admin};";
-			SqlDataAdapter dataAdapter = new SqlDataAdapter(readQuery, _connection);
-			DataTable dataTable = new DataTable();
-			dataAdapter.Fill(dataTable);
-			_connection.Close();
-			this.currentUserId = int.Parse(dataTable.Rows[0]["UserId"].ToString());
-			
-			return dataTable.Rows.Count == 1;
+				string readQuery = $"SELECT Users.UserType, Users.UserId FROM LoginData " +
+								   $"JOIN Users ON Users.UserId=LoginData.UserId " +
+								   $"WHERE Login='{login}' AND Password='{password}' AND Users.UserType={(int)UserType.Admin};";
+				SqlDataAdapter dataAdapter = new SqlDataAdapter(readQuery, _connection);
+				DataTable dataTable = new DataTable();
+				dataAdapter.Fill(dataTable);
+				_connection.Close();
+				this.currentUserId = int.Parse(dataTable.Rows[0]["UserId"].ToString());
+
+				return dataTable.Rows.Count == 1;
+			} catch(Exception e)
+            {
+				Console.WriteLine("Something went wrong");
+				return false;
+            }
 		}
 		public int GetCurrentLoggedUser()
         {

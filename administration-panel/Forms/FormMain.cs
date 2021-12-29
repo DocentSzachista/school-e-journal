@@ -289,10 +289,34 @@ namespace DamianRaczkowskiLab2PracDom
             }
         }
 
+        /// <summary>
+        /// Na kliknięcie otwórz formularz by zmienić hasło administratora
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void zmieńHasłoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form changePWDForm = new ChangePasswordForm(_currentUserId);
-            changePWDForm.Show();
+            changePWDForm.ShowDialog();
+        }
+        /// <summary>
+        /// Na kliknięcie otwórz formularz do zmiany hasła wybranego użytkownika
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void zmieńToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_usedDataObject.GetDataType() == DataType.Uzytkownicy && this.dataGridViewUsers.SelectedRows.Count == 1)
+            {
+                DataGridViewRow row = this.dataGridViewUsers.SelectedRows[0];
+                int index = int.Parse(row.Cells[0].Value.ToString());
+                string username = $"{row.Cells[1].Value.ToString()} { row.Cells[3].Value.ToString()} ";
+                Console.WriteLine(index);
+                ChangePasswordForm changePasswordForm = new ChangePasswordForm(index, username);
+                changePasswordForm.ShowDialog();
+            }
+            else
+                MessageBox.Show("Musisz wybrać dokładnie jednego użytkownika do zmiany hasła");
         }
     }
 }

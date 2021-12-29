@@ -58,6 +58,7 @@ namespace DamianRaczkowskiLab2PracDom
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.użytkownikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zmieńHasłoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zmieńToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsers)).BeginInit();
             this.panelUserData.SuspendLayout();
             this.panelButtons.SuspendLayout();
@@ -342,7 +343,8 @@ namespace DamianRaczkowskiLab2PracDom
             // użytkownikToolStripMenuItem
             // 
             this.użytkownikToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.zmieńHasłoToolStripMenuItem});
+            this.zmieńHasłoToolStripMenuItem,
+            this.zmieńToolStripMenuItem});
             this.użytkownikToolStripMenuItem.Name = "użytkownikToolStripMenuItem";
             this.użytkownikToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.użytkownikToolStripMenuItem.Text = "Użytkownik";
@@ -351,8 +353,15 @@ namespace DamianRaczkowskiLab2PracDom
             // 
             this.zmieńHasłoToolStripMenuItem.Name = "zmieńHasłoToolStripMenuItem";
             this.zmieńHasłoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.zmieńHasłoToolStripMenuItem.Text = "Zmień hasło";
+            this.zmieńHasłoToolStripMenuItem.Text = "Zmień swoje hasło ";
             this.zmieńHasłoToolStripMenuItem.Click += new System.EventHandler(this.zmieńHasłoToolStripMenuItem_Click);
+            // 
+            // zmieńToolStripMenuItem
+            // 
+            this.zmieńToolStripMenuItem.Name = "zmieńToolStripMenuItem";
+            this.zmieńToolStripMenuItem.Size = new System.Drawing.Size(287, 22);
+            this.zmieńToolStripMenuItem.Text = "Zmień hasło wybranemu użytkownikowi";
+            this.zmieńToolStripMenuItem.Click += new System.EventHandler(this.zmieńToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -416,6 +425,7 @@ namespace DamianRaczkowskiLab2PracDom
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem użytkownikToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zmieńHasłoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zmieńToolStripMenuItem;
     }
 }
 
