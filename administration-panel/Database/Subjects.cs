@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Globalization;
+
 namespace Database
 {
     class Subjects : IDAO
@@ -30,13 +32,29 @@ namespace Database
 
         public override void InsertData(string[] data)
         {
+            string spCommand = "SP_DML_SUBJECT";
             _connection.Open();
-            using(SqlCommand insertProcedure = new SqlCommand("SP_DML_SUBJECT", _connection))
+            if(data.Length > 3)
+            {
+                spCommand = "SP_DML_SUBJ_WITH_LESSONS";
+            }
+            using (SqlCommand insertProcedure = new SqlCommand(spCommand, _connection))
             {
                 insertProcedure.CommandType = CommandType.StoredProcedure;
                 insertProcedure.Parameters.AddWithValue("@teacherId", int.Parse(data[0]) );
                 insertProcedure.Parameters.AddWithValue("@subjectName", data[1]);
                 insertProcedure.Parameters.AddWithValue("@className",data[2]);
+                
+                if(data.Length > 3)
+                {
+                    
+                    // Niepoprawny format wejściowy idk why 
+                    insertProcedure.Parameters.AddWithValue("@startDate", DateTime.ParseExact(data[3], "yyyy-MM-dd", CultureInfo.CurrentCulture));
+                    insertProcedure.Parameters.AddWithValue("@startTime", DateTime.ParseExact(data[4], "hh-mm-ss", CultureInfo.CurrentCulture));
+                    insertProcedure.Parameters.AddWithValue("@endDate", DateTime.ParseExact(data[5], "yyyy-MM-dd",  CultureInfo.CurrentCulture ));
+                    insertProcedure.Parameters.AddWithValue("@endTime", DateTime.ParseExact(data[6], "hh-mm-ss", CultureInfo.CurrentCulture));
+                }
+
                 insertProcedure.Parameters.AddWithValue("@ACTION", "INSERT");
                 insertProcedure.ExecuteNonQuery();
             }
@@ -58,13 +76,25 @@ namespace Database
         public override void UpdateData(string[] data, int index)
         {
             _connection.Open();
-            using(SqlCommand updateSql = new SqlCommand("SP_DML_SuBJECT", _connection))
+            string spCommand = "SP_DML_SUBJECT";
+            if (data.Length > 3)
+            {
+                spCommand = "SP_DML_SUBJ_WITH_LESSONS";
+            }
+            using (SqlCommand updateSql = new SqlCommand(spCommand, _connection))
             {
                 updateSql.CommandType = CommandType.StoredProcedure;
                 updateSql.Parameters.AddWithValue("@subjectId", index);
                 updateSql.Parameters.AddWithValue("@subjectName", data[0]);
                 updateSql.Parameters.AddWithValue("@className", data[1]);
                 updateSql.Parameters.AddWithValue("@teacherId", int.Parse(data[2]));
+                if (data.Length > 3)
+                {
+                    updateSql.Parameters.AddWithValue("@startDate", int.Parse(data[3]));
+                    updateSql.Parameters.AddWithValue("@startTime", int.Parse(data[4]));
+                    updateSql.Parameters.AddWithValue("@endDate", int.Parse(data[5]));
+                    updateSql.Parameters.AddWithValue("@endTime", int.Parse(data[6]));
+                }
                 updateSql.Parameters.AddWithValue("@ACTION", "UPDATE");
                 updateSql.ExecuteNonQuery();
             }

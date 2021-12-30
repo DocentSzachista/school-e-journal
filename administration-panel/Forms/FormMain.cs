@@ -235,8 +235,8 @@ namespace DamianRaczkowskiLab2PracDom
                     string lastName = this.textBoxLastName.Text;
                     string phoneNumber = this.textBoxPhoneNumber.Text;
                     string email = this.textBoxEmail.Text;
-                    if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email) 
-                         || this.comboBoxUserType.SelectedIndex < 0 )
+                    if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email)
+                         || this.comboBoxUserType.SelectedIndex < 0)
                     {
                         MessageBox.Show("Nie uzupełniłeś wszystkich pól");
                         return;
@@ -248,22 +248,32 @@ namespace DamianRaczkowskiLab2PracDom
                 case DataType.Zajecia:
                     // MessageBox.Show("Nie uzupełniłeś wszystkich pól (Zajecia)");
                     string subjectName = this.subjectNameTextBox.Text;
-                    string dateStart   = this.beginDateTimePicker.Text;
-                    string endDate     = this.endDateTimePicker.Text;
-                    string startTime   = this.startTime.Text;
-                    string endTime     = this.endTime.Text;
+                    string dateStart = this.beginDateTimePicker.Value.Date.ToString("yyyy-MM-dd");
+                    string endDate = this.endDateTimePicker.Value.ToString("yyyy-MM-dd");
+                    string startTime = this.startTime.Value.ToString("HH-mm-ss");
+                    string endTime = this.endTime.Value.ToString("HH-mm-ss");
                     bool generateDates = this.generateLessonsCheckbox.Checked;
                     string classToBeAllocatedWith = this.classNameTextBox.Text;
+                    if (string.IsNullOrEmpty(subjectName) || string.IsNullOrEmpty(dateStart) || string.IsNullOrEmpty(endDate)
+                        || string.IsNullOrEmpty(startTime) || string.IsNullOrEmpty(endTime) || string.IsNullOrEmpty(classToBeAllocatedWith)
+                        || this.teacherGridView.SelectedRows.Count < 1)
+                    {
+                        MessageBox.Show("Nie uzupełniłeś wszystkich pól");
+                        return;
+                    }
                     teacherId = this.teacherGridView.SelectedRows[0].Cells[0].Value.ToString();
+                    string[] data;
                     if (generateDates)
                     {
                         // TODO: implement generating dates for given space of itme 
+                        data = new string[] { teacherId, subjectName, classToBeAllocatedWith, dateStart, startTime, endDate, endTime }; 
                     }
                     else
                     {
-                        string[] data = new string[] {teacherId, subjectName, classToBeAllocatedWith };
-                        this._usedDataObject.InsertData(data);
+                        data = new string[] {teacherId, subjectName, classToBeAllocatedWith };
+                        
                     }
+                    this._usedDataObject.InsertData(data);
                     //string className = this.subjectNameTextBox.Text;
                     break;
                 case DataType.Klasy:
