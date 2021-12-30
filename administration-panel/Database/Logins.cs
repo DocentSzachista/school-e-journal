@@ -46,6 +46,11 @@ namespace Database
 			command.ExecuteNonQuery();
 			_connection.Close();
 		}
+		/// <summary>
+		/// Hashowanie hasła, jedynie do użytku w celach nauki. W realnej aplikacji powinno się skorzystać z Bcryptu bądź conajmniej z SHA-256
+		/// </summary>
+		/// <param name="password"></param>
+		/// <returns></returns>
 		private string EncryptPassword(string password)
         {
 			return password.GetHashCode().ToString();
