@@ -32,12 +32,12 @@ namespace DamianRaczkowskiLab2PracDom.Forms
             this.changePasswordButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.changePasswordTextBox = new System.Windows.Forms.TextBox();
-            this.loginTextBox = new System.Windows.Forms.TextBox();
+            this.userDataLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // changePasswordButton
             // 
-            this.changePasswordButton.Location = new System.Drawing.Point(60, 92);
+            this.changePasswordButton.Location = new System.Drawing.Point(38, 97);
             this.changePasswordButton.Name = "changePasswordButton";
             this.changePasswordButton.Size = new System.Drawing.Size(172, 23);
             this.changePasswordButton.TabIndex = 0;
@@ -48,7 +48,7 @@ namespace DamianRaczkowskiLab2PracDom.Forms
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 44);
+            this.label1.Location = new System.Drawing.Point(14, 64);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 13);
             this.label1.TabIndex = 1;
@@ -56,29 +56,34 @@ namespace DamianRaczkowskiLab2PracDom.Forms
             // 
             // changePasswordTextBox
             // 
-            this.changePasswordTextBox.Location = new System.Drawing.Point(89, 44);
+            this.changePasswordTextBox.Location = new System.Drawing.Point(91, 61);
             this.changePasswordTextBox.Name = "changePasswordTextBox";
             this.changePasswordTextBox.Size = new System.Drawing.Size(143, 20);
             this.changePasswordTextBox.TabIndex = 2;
+            this.changePasswordTextBox.UseSystemPasswordChar = true;
             // 
-            // loginTextBox
+            // userData
             // 
-            this.loginTextBox.Location = new System.Drawing.Point(89, 18);
-            this.loginTextBox.Name = "loginTextBox";
-            this.loginTextBox.Size = new System.Drawing.Size(143, 20);
-            this.loginTextBox.TabIndex = 3;
+            this.userDataLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.userDataLabel.Location = new System.Drawing.Point(12, 9);
+            this.userDataLabel.Name = "userData";
+            this.userDataLabel.Size = new System.Drawing.Size(243, 40);
+            this.userDataLabel.TabIndex = 3;
+            this.userDataLabel.Text = "Zmiana hasła dla administratora";
+            this.userDataLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ChangePasswordForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(301, 151);
-            this.Controls.Add(this.loginTextBox);
+            this.ClientSize = new System.Drawing.Size(267, 132);
+            this.Controls.Add(this.userDataLabel);
             this.Controls.Add(this.changePasswordTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.changePasswordButton);
             this.Name = "ChangePasswordForm";
             this.Text = "Zmiana Hasła";
+            this.Load += new System.EventHandler(this.ChangePasswordForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -89,6 +94,6 @@ namespace DamianRaczkowskiLab2PracDom.Forms
         private System.Windows.Forms.Button changePasswordButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox changePasswordTextBox;
-        private System.Windows.Forms.TextBox loginTextBox;
+        private System.Windows.Forms.Label userDataLabel;
     }
 }

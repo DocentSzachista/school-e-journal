@@ -26,7 +26,7 @@ namespace DamianRaczkowskiLab2PracDom.Forms
             {
                 this.Hide();
 
-                FormMain main = new FormMain();
+                FormMain main = new FormMain(logins.GetCurrentLoggedUser());
                 main.FormClosed += (a, b) =>
                 {
                     DialogResult res = MessageBox.Show("Tak - Wyjście z aplikacji\nNie - wylogowanie", "Wyjście z aplikacji", MessageBoxButtons.YesNo);

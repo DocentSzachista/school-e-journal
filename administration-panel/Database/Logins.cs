@@ -7,6 +7,7 @@ namespace Database
 {
 	class Logins : IDAO
 	{
+		private int currentUserId;
 		public override void DeleteData(int index)
 		{
 			// No implementation will be provided
@@ -38,26 +39,47 @@ namespace Database
 		{
 			_connection.Open();
 			string updateQuery = $"UPDATE LoginData SET Password = @pwd " +
-				$"WHERE Login = @login;";
+				$"WHERE UserId = @id";
 			SqlCommand command = new SqlCommand(updateQuery, _connection);
-			command.Parameters.AddWithValue("@pwd", data[1]);
-			command.Parameters.AddWithValue("@login", data[0]);
+			command.Parameters.AddWithValue("@pwd", EncryptPassword(data[0]));
+			command.Parameters.AddWithValue("@id", index);
 			command.ExecuteNonQuery();
 			_connection.Close();
 		}
-
+		/// <summary>
+		/// Hashowanie hasła, jedynie do użytku w celach nauki. W realnej aplikacji powinno się skorzystać z Bcryptu bądź conajmniej z SHA-256
+		/// </summary>
+		/// <param name="password"></param>
+		/// <returns></returns>
+		private string EncryptPassword(string password)
+        {
+			return password.GetHashCode().ToString();
+        }
 		public bool CheckPassword(string login, string password)
 		{
-			_connection.Open();
+			try
+			{
+				_connection.Open();
 
-			string readQuery = $"SELECT Users.UserType FROM LoginData " +
-							   $"JOIN Users ON Users.UserId=LoginData.UserId " +
-							   $"WHERE Login='{login}' AND Password='{password}' AND Users.UserType={(int)UserType.Admin};";
-			SqlDataAdapter dataAdapter = new SqlDataAdapter(readQuery, _connection);
-			DataTable dataTable = new DataTable();
-			dataAdapter.Fill(dataTable);
-			_connection.Close();
-			return dataTable.Rows.Count == 1;
+				string readQuery = $"SELECT Users.UserType, Users.UserId FROM LoginData " +
+								   $"JOIN Users ON Users.UserId=LoginData.UserId " +
+								   $"WHERE Login='{login}' AND Password='{EncryptPassword(password)}' AND Users.UserType={(int)UserType.Admin};";
+				SqlDataAdapter dataAdapter = new SqlDataAdapter(readQuery, _connection);
+				DataTable dataTable = new DataTable();
+				dataAdapter.Fill(dataTable);
+				_connection.Close();
+				this.currentUserId = int.Parse(dataTable.Rows[0]["UserId"].ToString());
+
+				return dataTable.Rows.Count == 1;
+			} catch(Exception e)
+            {
+				Console.WriteLine("Something went wrong");
+				return false;
+            }
 		}
+		public int GetCurrentLoggedUser()
+        {
+			return this.currentUserId;
+        }
 	}
 }
