@@ -60,12 +60,14 @@ namespace DamianRaczkowskiLab2PracDom
             this.zmieńHasłoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zmieńToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subjectPanel = new System.Windows.Forms.Panel();
-            this.teacherGridView = new System.Windows.Forms.DataGridView();
-            this.beginDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.startTime = new System.Windows.Forms.DateTimePicker();
-            this.endTime = new System.Windows.Forms.DateTimePicker();
             this.subjectNameTextBox = new System.Windows.Forms.TextBox();
+            this.endTime = new System.Windows.Forms.DateTimePicker();
+            this.startTime = new System.Windows.Forms.DateTimePicker();
+            this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.beginDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.teacherGridView = new System.Windows.Forms.DataGridView();
+            this.generateLessonsCheckbox = new System.Windows.Forms.CheckBox();
+            this.classNameTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsers)).BeginInit();
             this.panelUserData.SuspendLayout();
             this.panelButtons.SuspendLayout();
@@ -374,6 +376,8 @@ namespace DamianRaczkowskiLab2PracDom
             // 
             // subjectPanel
             // 
+            this.subjectPanel.Controls.Add(this.classNameTextBox);
+            this.subjectPanel.Controls.Add(this.generateLessonsCheckbox);
             this.subjectPanel.Controls.Add(this.subjectNameTextBox);
             this.subjectPanel.Controls.Add(this.endTime);
             this.subjectPanel.Controls.Add(this.startTime);
@@ -385,37 +389,12 @@ namespace DamianRaczkowskiLab2PracDom
             this.subjectPanel.Size = new System.Drawing.Size(524, 231);
             this.subjectPanel.TabIndex = 7;
             // 
-            // teacherGridView
+            // subjectNameTextBox
             // 
-            this.teacherGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.teacherGridView.Location = new System.Drawing.Point(205, 3);
-            this.teacherGridView.Name = "teacherGridView";
-            this.teacherGridView.Size = new System.Drawing.Size(316, 225);
-            this.teacherGridView.TabIndex = 0;
-            // 
-            // beginDateTimePicker
-            // 
-            this.beginDateTimePicker.Location = new System.Drawing.Point(6, 73);
-            this.beginDateTimePicker.Name = "beginDateTimePicker";
-            this.beginDateTimePicker.Size = new System.Drawing.Size(193, 20);
-            this.beginDateTimePicker.TabIndex = 1;
-            this.beginDateTimePicker.Value = new System.DateTime(2021, 12, 30, 0, 0, 0, 0);
-            // 
-            // endDateTimePicker
-            // 
-            this.endDateTimePicker.Location = new System.Drawing.Point(6, 118);
-            this.endDateTimePicker.Name = "endDateTimePicker";
-            this.endDateTimePicker.Size = new System.Drawing.Size(193, 20);
-            this.endDateTimePicker.TabIndex = 2;
-            // 
-            // startTime
-            // 
-            this.startTime.CustomFormat = "";
-            this.startTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.startTime.Location = new System.Drawing.Point(3, 161);
-            this.startTime.Name = "startTime";
-            this.startTime.Size = new System.Drawing.Size(72, 20);
-            this.startTime.TabIndex = 3;
+            this.subjectNameTextBox.Location = new System.Drawing.Point(6, 41);
+            this.subjectNameTextBox.Name = "subjectNameTextBox";
+            this.subjectNameTextBox.Size = new System.Drawing.Size(193, 20);
+            this.subjectNameTextBox.TabIndex = 5;
             // 
             // endTime
             // 
@@ -426,12 +405,62 @@ namespace DamianRaczkowskiLab2PracDom
             this.endTime.Size = new System.Drawing.Size(72, 20);
             this.endTime.TabIndex = 4;
             // 
-            // subjectNameTextBox
+            // startTime
             // 
-            this.subjectNameTextBox.Location = new System.Drawing.Point(6, 41);
-            this.subjectNameTextBox.Name = "subjectNameTextBox";
-            this.subjectNameTextBox.Size = new System.Drawing.Size(193, 20);
-            this.subjectNameTextBox.TabIndex = 5;
+            this.startTime.CustomFormat = "";
+            this.startTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.startTime.Location = new System.Drawing.Point(3, 161);
+            this.startTime.Name = "startTime";
+            this.startTime.Size = new System.Drawing.Size(72, 20);
+            this.startTime.TabIndex = 3;
+            // 
+            // endDateTimePicker
+            // 
+            this.endDateTimePicker.Location = new System.Drawing.Point(6, 118);
+            this.endDateTimePicker.Name = "endDateTimePicker";
+            this.endDateTimePicker.Size = new System.Drawing.Size(193, 20);
+            this.endDateTimePicker.TabIndex = 2;
+            // 
+            // beginDateTimePicker
+            // 
+            this.beginDateTimePicker.CustomFormat = "\" \"";
+            this.beginDateTimePicker.Location = new System.Drawing.Point(6, 73);
+            this.beginDateTimePicker.Name = "beginDateTimePicker";
+            this.beginDateTimePicker.Size = new System.Drawing.Size(193, 20);
+            this.beginDateTimePicker.TabIndex = 1;
+            this.beginDateTimePicker.Value = new System.DateTime(2021, 12, 30, 0, 0, 0, 0);
+            // 
+            // teacherGridView
+            // 
+            this.teacherGridView.AllowUserToAddRows = false;
+            this.teacherGridView.AllowUserToDeleteRows = false;
+            this.teacherGridView.AllowUserToResizeColumns = false;
+            this.teacherGridView.AllowUserToResizeRows = false;
+            this.teacherGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.teacherGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.teacherGridView.Location = new System.Drawing.Point(205, 3);
+            this.teacherGridView.Name = "teacherGridView";
+            this.teacherGridView.ReadOnly = true;
+            this.teacherGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.teacherGridView.Size = new System.Drawing.Size(316, 225);
+            this.teacherGridView.TabIndex = 0;
+            // 
+            // generateLessonsCheckbox
+            // 
+            this.generateLessonsCheckbox.AutoSize = true;
+            this.generateLessonsCheckbox.Location = new System.Drawing.Point(6, 198);
+            this.generateLessonsCheckbox.Name = "generateLessonsCheckbox";
+            this.generateLessonsCheckbox.Size = new System.Drawing.Size(111, 17);
+            this.generateLessonsCheckbox.TabIndex = 6;
+            this.generateLessonsCheckbox.Text = "Wygeneruj lekcje ";
+            this.generateLessonsCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // classNameTextBox
+            // 
+            this.classNameTextBox.Location = new System.Drawing.Point(6, 13);
+            this.classNameTextBox.Name = "classNameTextBox";
+            this.classNameTextBox.Size = new System.Drawing.Size(93, 20);
+            this.classNameTextBox.TabIndex = 7;
             // 
             // FormMain
             // 
@@ -507,6 +536,8 @@ namespace DamianRaczkowskiLab2PracDom
         private System.Windows.Forms.DateTimePicker startTime;
         private System.Windows.Forms.DateTimePicker endTime;
         private System.Windows.Forms.TextBox subjectNameTextBox;
+        private System.Windows.Forms.CheckBox generateLessonsCheckbox;
+        private System.Windows.Forms.TextBox classNameTextBox;
     }
 }
 

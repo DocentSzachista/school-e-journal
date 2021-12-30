@@ -22,7 +22,18 @@ namespace Database
 
         public override void InsertData(string[] data)
         {
-            throw new NotImplementedException();
+            _connection.Open();
+            using(SqlCommand insertProcedure = new SqlCommand("SP_DML_SUBJECT", _connection))
+            {
+                insertProcedure.CommandType = CommandType.StoredProcedure;
+                insertProcedure.Parameters.AddWithValue("@teacherId", int.Parse(data[0]) );
+                insertProcedure.Parameters.AddWithValue("@subjectName", data[1]);
+                insertProcedure.Parameters.AddWithValue("@className",data[2]);
+                insertProcedure.Parameters.AddWithValue("@ACTION", "INSERT");
+                insertProcedure.ExecuteNonQuery();
+            }
+
+            _connection.Close();
         }
 
         public override DataTable ReadData()
