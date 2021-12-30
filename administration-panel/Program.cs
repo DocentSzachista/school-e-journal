@@ -17,7 +17,7 @@ namespace DamianRaczkowskiLab2PracDom
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new LoginForm());
-            Application.Run(new SubjectCalendar(0));
+            Application.Run(new SubjectCalendar(7));
         }
     }
 }

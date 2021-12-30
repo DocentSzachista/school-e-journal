@@ -32,6 +32,7 @@ namespace DamianRaczkowskiLab2PracDom.Forms
 			}
 			else
 			{
+				
 				subjectName.Text = data.Rows[0]["SubjectName"].ToString();
 				PopulateCalendar();
 			}

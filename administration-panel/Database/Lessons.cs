@@ -39,8 +39,9 @@ namespace Database
 		public DataTable GetSubjectLessons(int subjectId)
 		{
 			_connection.Open();
-			string readQuery = $"SELECT SubjectName, Topic, StartTime, EndTime FROM DisplayLessons " +
-							   $"WHERE SubjectId={subjectId};";
+			string readQuery = $"SELECT Topic, StartTime, SubjectName, EndTime FROM Lessons " +
+							   $"JOIN Subjects ON Subjects.SubjectId = Lessons.SubjectId " +
+							   $"WHERE Lessons.SubjectId={subjectId};";
 			SqlDataAdapter dataAdapter = new SqlDataAdapter(readQuery, _connection);
 			DataTable dataTable = new DataTable();
 			dataAdapter.Fill(dataTable);
