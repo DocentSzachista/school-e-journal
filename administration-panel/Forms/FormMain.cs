@@ -30,10 +30,12 @@ namespace DamianRaczkowskiLab2PracDom
             this.userInteractivePanels = new Dictionary<DataType, Panel>();
             userInteractivePanels.Add(DataType.Uzytkownicy, this.panelUserData);
             userInteractivePanels.Add(DataType.Klasy, this.panelClassData);
+            userInteractivePanels.Add(DataType.Zajecia, this.subjectPanel);
             this.comboBoxViewChanger.DataSource = Enum.GetValues(typeof(DataType));
             this.comboBoxUserType.DropDownStyle = ComboBoxStyle.DropDownList;
             this.comboBoxViewChanger.DropDownStyle = ComboBoxStyle.DropDownList;
             this.RefreshDataGrid();
+            
         }
         /// <summary>
         /// Przycisk Do dodawnia 
@@ -280,8 +282,8 @@ namespace DamianRaczkowskiLab2PracDom
             {
                 case DataType.Uzytkownicy:
                     return new Users();
-                /*case DataType.Zajecia:
-                    return new Subjects();*/
+                case DataType.Zajecia:
+                    return new Subjects();
                 case DataType.Klasy:
                     return new Classes();
                 default:

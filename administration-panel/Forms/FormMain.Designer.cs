@@ -59,12 +59,21 @@ namespace DamianRaczkowskiLab2PracDom
             this.użytkownikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zmieńHasłoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zmieńToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.subjectPanel = new System.Windows.Forms.Panel();
+            this.teacherGridView = new System.Windows.Forms.DataGridView();
+            this.beginDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.startTime = new System.Windows.Forms.DateTimePicker();
+            this.endTime = new System.Windows.Forms.DateTimePicker();
+            this.subjectNameTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsers)).BeginInit();
             this.panelUserData.SuspendLayout();
             this.panelButtons.SuspendLayout();
             this.panelClassData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeachers)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.subjectPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.teacherGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewUsers
@@ -352,7 +361,7 @@ namespace DamianRaczkowskiLab2PracDom
             // zmieńHasłoToolStripMenuItem
             // 
             this.zmieńHasłoToolStripMenuItem.Name = "zmieńHasłoToolStripMenuItem";
-            this.zmieńHasłoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zmieńHasłoToolStripMenuItem.Size = new System.Drawing.Size(287, 22);
             this.zmieńHasłoToolStripMenuItem.Text = "Zmień swoje hasło ";
             this.zmieńHasłoToolStripMenuItem.Click += new System.EventHandler(this.zmieńHasłoToolStripMenuItem_Click);
             // 
@@ -363,12 +372,74 @@ namespace DamianRaczkowskiLab2PracDom
             this.zmieńToolStripMenuItem.Text = "Zmień hasło wybranemu użytkownikowi";
             this.zmieńToolStripMenuItem.Click += new System.EventHandler(this.zmieńToolStripMenuItem_Click);
             // 
+            // subjectPanel
+            // 
+            this.subjectPanel.Controls.Add(this.subjectNameTextBox);
+            this.subjectPanel.Controls.Add(this.endTime);
+            this.subjectPanel.Controls.Add(this.startTime);
+            this.subjectPanel.Controls.Add(this.endDateTimePicker);
+            this.subjectPanel.Controls.Add(this.beginDateTimePicker);
+            this.subjectPanel.Controls.Add(this.teacherGridView);
+            this.subjectPanel.Location = new System.Drawing.Point(12, 350);
+            this.subjectPanel.Name = "subjectPanel";
+            this.subjectPanel.Size = new System.Drawing.Size(524, 231);
+            this.subjectPanel.TabIndex = 7;
+            // 
+            // teacherGridView
+            // 
+            this.teacherGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.teacherGridView.Location = new System.Drawing.Point(205, 3);
+            this.teacherGridView.Name = "teacherGridView";
+            this.teacherGridView.Size = new System.Drawing.Size(316, 225);
+            this.teacherGridView.TabIndex = 0;
+            // 
+            // beginDateTimePicker
+            // 
+            this.beginDateTimePicker.Location = new System.Drawing.Point(6, 73);
+            this.beginDateTimePicker.Name = "beginDateTimePicker";
+            this.beginDateTimePicker.Size = new System.Drawing.Size(193, 20);
+            this.beginDateTimePicker.TabIndex = 1;
+            this.beginDateTimePicker.Value = new System.DateTime(2021, 12, 30, 0, 0, 0, 0);
+            // 
+            // endDateTimePicker
+            // 
+            this.endDateTimePicker.Location = new System.Drawing.Point(6, 118);
+            this.endDateTimePicker.Name = "endDateTimePicker";
+            this.endDateTimePicker.Size = new System.Drawing.Size(193, 20);
+            this.endDateTimePicker.TabIndex = 2;
+            // 
+            // startTime
+            // 
+            this.startTime.CustomFormat = "";
+            this.startTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.startTime.Location = new System.Drawing.Point(3, 161);
+            this.startTime.Name = "startTime";
+            this.startTime.Size = new System.Drawing.Size(72, 20);
+            this.startTime.TabIndex = 3;
+            // 
+            // endTime
+            // 
+            this.endTime.CustomFormat = "";
+            this.endTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.endTime.Location = new System.Drawing.Point(127, 161);
+            this.endTime.Name = "endTime";
+            this.endTime.Size = new System.Drawing.Size(72, 20);
+            this.endTime.TabIndex = 4;
+            // 
+            // subjectNameTextBox
+            // 
+            this.subjectNameTextBox.Location = new System.Drawing.Point(6, 41);
+            this.subjectNameTextBox.Name = "subjectNameTextBox";
+            this.subjectNameTextBox.Size = new System.Drawing.Size(193, 20);
+            this.subjectNameTextBox.TabIndex = 5;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(803, 604);
+            this.Controls.Add(this.subjectPanel);
             this.Controls.Add(this.panelButtons);
             this.Controls.Add(this.comboBoxViewChanger);
             this.Controls.Add(this.dataGridViewUsers);
@@ -389,6 +460,9 @@ namespace DamianRaczkowskiLab2PracDom
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeachers)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.subjectPanel.ResumeLayout(false);
+            this.subjectPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.teacherGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -426,6 +500,13 @@ namespace DamianRaczkowskiLab2PracDom
         private System.Windows.Forms.ToolStripMenuItem użytkownikToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zmieńHasłoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zmieńToolStripMenuItem;
+        private System.Windows.Forms.Panel subjectPanel;
+        private System.Windows.Forms.DateTimePicker endDateTimePicker;
+        private System.Windows.Forms.DateTimePicker beginDateTimePicker;
+        private System.Windows.Forms.DataGridView teacherGridView;
+        private System.Windows.Forms.DateTimePicker startTime;
+        private System.Windows.Forms.DateTimePicker endTime;
+        private System.Windows.Forms.TextBox subjectNameTextBox;
     }
 }
 

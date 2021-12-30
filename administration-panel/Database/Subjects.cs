@@ -17,7 +17,7 @@ namespace Database
 
         public override DataType GetDataType()
         {
-            throw new NotImplementedException();
+            return DataType.Zajecia;
         }
 
         public override void InsertData(string[] data)
