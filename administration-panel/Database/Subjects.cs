@@ -12,7 +12,15 @@ namespace Database
     {
         public override void DeleteData(int index)
         {
-            throw new NotImplementedException();
+            _connection.Open();
+            using (SqlCommand deleteProcedure = new SqlCommand("SP_DML_SUBJECT", _connection))
+            {
+                deleteProcedure.CommandType = CommandType.StoredProcedure;
+                deleteProcedure.Parameters.AddWithValue("@ACTION", "DELETE");
+                deleteProcedure.Parameters.AddWithValue("@subjectId", index);
+                deleteProcedure.ExecuteNonQuery();
+            }
+            _connection.Close();
         }
 
         public override DataType GetDataType()
@@ -39,7 +47,7 @@ namespace Database
         public override DataTable ReadData()
         {
             _connection.Open();
-            string readQuery = "SELECT * FROM DisplaySubjectInfo";
+            string readQuery = "SELECT * FROM DisplaySubjectInfo;";
             SqlDataAdapter dataAdapter = new SqlDataAdapter(readQuery, _connection);
             DataTable dataTable = new DataTable();
             dataAdapter.Fill(dataTable);
@@ -49,7 +57,18 @@ namespace Database
 
         public override void UpdateData(string[] data, int index)
         {
-            throw new NotImplementedException();
+            _connection.Open();
+            using(SqlCommand updateSql = new SqlCommand("SP_DML_SuBJECT", _connection))
+            {
+                updateSql.CommandType = CommandType.StoredProcedure;
+                updateSql.Parameters.AddWithValue("@subjectId", index);
+                updateSql.Parameters.AddWithValue("@subjectName", data[0]);
+                updateSql.Parameters.AddWithValue("@className", data[1]);
+                updateSql.Parameters.AddWithValue("@teacherId", int.Parse(data[2]));
+                updateSql.Parameters.AddWithValue("@ACTION", "UPDATE");
+                updateSql.ExecuteNonQuery();
+            }
+            _connection.Close();
         }
     }
 }

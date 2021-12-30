@@ -50,6 +50,40 @@ namespace DamianRaczkowskiLab2PracDom
 
         }
 
+        // Usuń wybrany rekord 
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            if (this.dataGridViewUsers.SelectedRows.Count > 1 || this.dataGridViewUsers.SelectedRows.Count == 0)
+                return;
+            int index = int.Parse(this.dataGridViewUsers.SelectedRows[0].Cells[0].Value.ToString());
+            this._usedDataObject.DeleteData(index);
+            this.RefreshDataGrid();
+        }
+
+        /// <summary>
+        /// Przycisk służący do edycji konkretnego rekordu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonUpdate_Click(object sender, EventArgs e)
+        {
+            if (this.dataGridViewUsers.SelectedRows.Count > 1 || this.dataGridViewUsers.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Nie wybrano ");
+                return;
+            }
+            DataGridViewRow row = dataGridViewUsers.SelectedRows[0];
+            int index = int.Parse(row.Cells[0].Value.ToString());
+            Console.WriteLine(index);
+            string[] data = this.UpdateButtonSwitch(this._usedDataObject.GetDataType());
+            if (data == null)
+                return;
+            this._usedDataObject.UpdateData(data, index);
+            this.RefreshDataGrid();
+        }
+
+
+
         /// <summary>
         /// Odśwież UserDataGrida i jeżeli panel od klas jest włączony to Jego też odśwież 
         /// </summary>
@@ -67,15 +101,7 @@ namespace DamianRaczkowskiLab2PracDom
                 this.teacherGridView.DataSource = user.GetSpecifiedUserData(UserType.Nauczyciel);
             }
         }
-        // Usuń wybrany rekord 
-        private void buttonDelete_Click(object sender, EventArgs e)
-        {
-            if (this.dataGridViewUsers.SelectedRows.Count > 1 || this.dataGridViewUsers.SelectedRows.Count == 0)
-                return;
-            int index = int.Parse(this.dataGridViewUsers.SelectedRows[0].Cells[0].Value.ToString());
-            this._usedDataObject.DeleteData(index);
-            this.RefreshDataGrid();
-        }
+
         /// <summary>
         /// WYdarzenie obsługujące zmianę wybranego wiersza, wyświetla jego zawartość w przyporządkowanych textboxach
         /// </summary>
@@ -131,9 +157,23 @@ namespace DamianRaczkowskiLab2PracDom
                         }
                     }
                     break;
-               case DataType.Zajecia:
 
+               case DataType.Zajecia:
+                    string subjectName = row.Cells[1].Value.ToString();
+                    this.subjectNameTextBox.Text = subjectName;
+                    this.teacherGridView.ClearSelection();
+                    foreach (DataGridViewRow teacherRow in this.teacherGridView.Rows)
+                    {
+                        if (!string.IsNullOrEmpty(teacherRow.Cells[3].Value.ToString()))
+                            if (teacherRow.Cells[3].Value.ToString().Equals(row.Cells[4].Value.ToString()))
+                            {
+                                rowIndex = teacherRow.Index;
+                                this.teacherGridView.Rows[rowIndex].Selected = true;
+                                break;
+                            }
+                    }
                     break;
+
             }
         }
 
@@ -151,27 +191,7 @@ namespace DamianRaczkowskiLab2PracDom
                     control.Text = "";
 
         }
-        /// <summary>
-        /// Przycisk służący do edycji konkretnego rekordu
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void buttonUpdate_Click(object sender, EventArgs e)
-        {
-            if (this.dataGridViewUsers.SelectedRows.Count > 1 || this.dataGridViewUsers.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Nie wybrano ");
-                return;
-            }
-            DataGridViewRow row = dataGridViewUsers.SelectedRows[0];
-            int index = int.Parse(row.Cells[0].Value.ToString());
-            Console.WriteLine(index);
-            string[] data =  this.UpdateButtonSwitch(this._usedDataObject.GetDataType());
-            if (data == null)
-                return;
-            this._usedDataObject.UpdateData(data, index);
-            this.RefreshDataGrid();
-        }
+
 
         /// <summary>
         /// wydarzenie czyszczące przyciski 
@@ -237,7 +257,7 @@ namespace DamianRaczkowskiLab2PracDom
                     teacherId = this.teacherGridView.SelectedRows[0].Cells[0].Value.ToString();
                     if (generateDates)
                     {
-
+                        // TODO: implement generating dates for given space of itme 
                     }
                     else
                     {
@@ -269,19 +289,26 @@ namespace DamianRaczkowskiLab2PracDom
         }
         private  string[] UpdateButtonSwitch(DataType dataType)
         {
+            string teacherId = "";
             switch (dataType)
             {
                 case DataType.Uzytkownicy:
                     string[] userFieldsData = { this.textBoxFirstName.Text, this.textBoxSecondName.Text, this.textBoxLastName.Text, this.textBoxPhoneNumber.Text, this.textBoxEmail.Text, this.comboBoxUserType.SelectedItem.ToString() };
                     return userFieldsData;
 
-                /*case DataType.Zajecia:
-                    MessageBox.Show("Nie uzupełniłeś wszystkich pól (Zajecia)");
-                    string[] subjectsFieldsData = null;
-                    return subjectsFieldsData;*/
+               
+                case DataType.Zajecia:
+                    //MessageBox.Show("Nie uzupełniłeś wszystkich pól (Zajecia)");
+                    if (teacherGridView.SelectedRows.Count == 1)
+                    {
+                        DataGridViewRow row = teacherGridView.SelectedRows[0];
+                        teacherId = row.Cells[0].Value.ToString();
+                    }
+                    string[] subjectsFieldsData = { this.subjectNameTextBox.Text, this.classNameTextBox.Text, teacherId };
+                    return subjectsFieldsData;
                 case DataType.Klasy:
                     string className = this.textBoxClassName.Text;
-                    string teacherId = "";
+                    
                     if (dataGridViewTeachers.SelectedRows.Count == 1)
                     {
                         DataGridViewRow row = dataGridViewTeachers.SelectedRows[0];
