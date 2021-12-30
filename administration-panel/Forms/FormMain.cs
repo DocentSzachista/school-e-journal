@@ -61,6 +61,11 @@ namespace DamianRaczkowskiLab2PracDom
                 Users user = new Users();
                 this.dataGridViewTeachers.DataSource = user.GetSpecifiedUserData(UserType.Nauczyciel);
             }
+            if(this._usedDataObject.GetDataType() == DataType.Zajecia)
+            {
+                Users user = new Users();
+                this.teacherGridView.DataSource = user.GetSpecifiedUserData(UserType.Nauczyciel);
+            }
         }
         // Usuń wybrany rekord 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -201,7 +206,8 @@ namespace DamianRaczkowskiLab2PracDom
         #region Funkcje rozróżniające z jakich pól dane pobierać w zależności od typu danych wybranych do modyfikacji 
         private void AddButtonSwitch(DataType dataType)
         {
-            switch(dataType)
+            string teacherId = "";
+            switch (dataType)
             {
                 case DataType.Uzytkownicy:
                     string firstName = this.textBoxFirstName.Text;
@@ -219,9 +225,27 @@ namespace DamianRaczkowskiLab2PracDom
                     string[] userData = { firstName, secondName, lastName, phoneNumber, email, userType };
                     this._usedDataObject.InsertData(userData);
                     break;
-                /*case DataType.Zajecia:
-                    MessageBox.Show("Nie uzupełniłeś wszystkich pól (Zajecia)");
-                    break;*/
+                case DataType.Zajecia:
+                    // MessageBox.Show("Nie uzupełniłeś wszystkich pól (Zajecia)");
+                    string subjectName = this.subjectNameTextBox.Text;
+                    string dateStart   = this.beginDateTimePicker.Text;
+                    string endDate     = this.endDateTimePicker.Text;
+                    string startTime   = this.startTime.Text;
+                    string endTime     = this.endTime.Text;
+                    bool generateDates = this.generateLessonsCheckbox.Checked;
+                    string classToBeAllocatedWith = this.classNameTextBox.Text;
+                    teacherId = this.teacherGridView.SelectedRows[0].Cells[0].Value.ToString();
+                    if (generateDates)
+                    {
+
+                    }
+                    else
+                    {
+                        string[] data = new string[] {teacherId, subjectName, classToBeAllocatedWith };
+                        this._usedDataObject.InsertData(data);
+                    }
+                    //string className = this.subjectNameTextBox.Text;
+                    break;
                 case DataType.Klasy:
                     string className = this.textBoxClassName.Text;
                     if(string.IsNullOrEmpty(className) )
@@ -229,7 +253,7 @@ namespace DamianRaczkowskiLab2PracDom
                         MessageBox.Show("Nie uzupełniłeś wszystkich wymaganych pól, nie stworzono ");
                         return;
                     }
-                    string teacherId = "";
+                    
                     if (dataGridViewTeachers.SelectedRows.Count == 1)
                     {
                         DataGridViewRow row = dataGridViewTeachers.SelectedRows[0];
