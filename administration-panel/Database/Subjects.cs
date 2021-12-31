@@ -47,13 +47,13 @@ namespace Database
                 
                 if(data.Length > 3)
                 {
-                    
+
                     // Niepoprawny format wejściowy idk why 
-                    insertProcedure.Parameters.AddWithValue("@startDate", DateTime.ParseExact(data[3], "yyyy-MM-dd", CultureInfo.CurrentCulture));
-                    insertProcedure.Parameters.AddWithValue("@startTime", DateTime.ParseExact(data[4], "hh-mm-ss", CultureInfo.CurrentCulture));
-                    insertProcedure.Parameters.AddWithValue("@endDate", DateTime.ParseExact(data[5], "yyyy-MM-dd",  CultureInfo.CurrentCulture ));
-                    insertProcedure.Parameters.AddWithValue("@endTime", DateTime.ParseExact(data[6], "hh-mm-ss", CultureInfo.CurrentCulture));
+                    insertProcedure.Parameters.AddWithValue("@startDate", data[3]);
+                    insertProcedure.Parameters.AddWithValue("@endDay", data[4]);
+                    insertProcedure.Parameters.AddWithValue("@endDate", data[5]);
                 }
+
 
                 insertProcedure.Parameters.AddWithValue("@ACTION", "INSERT");
                 insertProcedure.ExecuteNonQuery();
