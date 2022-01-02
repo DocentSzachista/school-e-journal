@@ -60,14 +60,14 @@ namespace DamianRaczkowskiLab2PracDom
             this.zmieńHasłoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zmieńToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subjectPanel = new System.Windows.Forms.Panel();
+            this.classNameTextBox = new System.Windows.Forms.TextBox();
+            this.generateLessonsCheckbox = new System.Windows.Forms.CheckBox();
             this.subjectNameTextBox = new System.Windows.Forms.TextBox();
             this.endTime = new System.Windows.Forms.DateTimePicker();
             this.startTime = new System.Windows.Forms.DateTimePicker();
             this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.beginDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.teacherGridView = new System.Windows.Forms.DataGridView();
-            this.generateLessonsCheckbox = new System.Windows.Forms.CheckBox();
-            this.classNameTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsers)).BeginInit();
             this.panelUserData.SuspendLayout();
             this.panelButtons.SuspendLayout();
@@ -98,7 +98,7 @@ namespace DamianRaczkowskiLab2PracDom
             this.comboBoxViewChanger.Items.AddRange(new object[] {
             "Użytkownicy",
             "Klasy"});
-            this.comboBoxViewChanger.Location = new System.Drawing.Point(670, 305);
+            this.comboBoxViewChanger.Location = new System.Drawing.Point(667, 305);
             this.comboBoxViewChanger.Name = "comboBoxViewChanger";
             this.comboBoxViewChanger.Size = new System.Drawing.Size(121, 21);
             this.comboBoxViewChanger.TabIndex = 2;
@@ -389,6 +389,23 @@ namespace DamianRaczkowskiLab2PracDom
             this.subjectPanel.Size = new System.Drawing.Size(524, 231);
             this.subjectPanel.TabIndex = 7;
             // 
+            // classNameTextBox
+            // 
+            this.classNameTextBox.Location = new System.Drawing.Point(6, 13);
+            this.classNameTextBox.Name = "classNameTextBox";
+            this.classNameTextBox.Size = new System.Drawing.Size(93, 20);
+            this.classNameTextBox.TabIndex = 7;
+            // 
+            // generateLessonsCheckbox
+            // 
+            this.generateLessonsCheckbox.AutoSize = true;
+            this.generateLessonsCheckbox.Location = new System.Drawing.Point(6, 198);
+            this.generateLessonsCheckbox.Name = "generateLessonsCheckbox";
+            this.generateLessonsCheckbox.Size = new System.Drawing.Size(111, 17);
+            this.generateLessonsCheckbox.TabIndex = 6;
+            this.generateLessonsCheckbox.Text = "Wygeneruj lekcje ";
+            this.generateLessonsCheckbox.UseVisualStyleBackColor = true;
+            // 
             // subjectNameTextBox
             // 
             this.subjectNameTextBox.Location = new System.Drawing.Point(6, 41);
@@ -444,23 +461,6 @@ namespace DamianRaczkowskiLab2PracDom
             this.teacherGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.teacherGridView.Size = new System.Drawing.Size(316, 225);
             this.teacherGridView.TabIndex = 0;
-            // 
-            // generateLessonsCheckbox
-            // 
-            this.generateLessonsCheckbox.AutoSize = true;
-            this.generateLessonsCheckbox.Location = new System.Drawing.Point(6, 198);
-            this.generateLessonsCheckbox.Name = "generateLessonsCheckbox";
-            this.generateLessonsCheckbox.Size = new System.Drawing.Size(111, 17);
-            this.generateLessonsCheckbox.TabIndex = 6;
-            this.generateLessonsCheckbox.Text = "Wygeneruj lekcje ";
-            this.generateLessonsCheckbox.UseVisualStyleBackColor = true;
-            // 
-            // classNameTextBox
-            // 
-            this.classNameTextBox.Location = new System.Drawing.Point(6, 13);
-            this.classNameTextBox.Name = "classNameTextBox";
-            this.classNameTextBox.Size = new System.Drawing.Size(93, 20);
-            this.classNameTextBox.TabIndex = 7;
             // 
             // FormMain
             // 
