@@ -26,7 +26,7 @@ namespace SchoolEJournalWebAPI.Controllers
         {
             try
             {
-                var users = _dbContext.Users.ToList();
+                var users = _dbContext.Users.Where(user => user.UserType==2).ToList();
                 if(users.Count == 0)
                 {
                     return NotFound("No user found");
