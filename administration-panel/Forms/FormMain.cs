@@ -101,6 +101,17 @@ namespace DamianRaczkowskiLab2PracDom
                 Users user = new Users();
                 this.teacherGridView.DataSource = user.GetSpecifiedUserData(UserType.Nauczyciel);
             }
+            if(this._usedDataObject.GetDataType() == DataType.Uzytkownicy)
+            {
+                Users user = new Users();
+                DataTable table = user.GetSpecifiedUserData(UserType.Rodzic);
+
+                table.Columns.Add("Combined", typeof(string), "FirstName+' '+LastName");
+                this.parentComboBox.DataSource = table;
+                this.parentComboBox.DisplayMember =table.Columns[table.Columns.Count-1].ColumnName;
+                this.parentComboBox.ValueMember = table.Columns[0].ColumnName;
+                this.parentComboBox.SelectedItem = null;
+            }
         }
 
         /// <summary>
@@ -188,9 +199,12 @@ namespace DamianRaczkowskiLab2PracDom
             if (!this.userInteractivePanels.TryGetValue(dataType, out panel))
                 return;
             foreach (Control control in panel.Controls)
+            {
                 if (control is TextBox)
                     control.Text = "";
-
+                if (control is ComboBox)
+                   if( control.Equals(this.parentComboBox)) this.parentComboBox.SelectedIndex=-1;
+            }
         }
 
 
@@ -236,6 +250,7 @@ namespace DamianRaczkowskiLab2PracDom
                     string lastName = this.textBoxLastName.Text;
                     string phoneNumber = this.textBoxPhoneNumber.Text;
                     string email = this.textBoxEmail.Text;
+                    string parentIndex =  this.parentComboBox.SelectedIndex.ToString();
                     if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email)
                          || this.comboBoxUserType.SelectedIndex < 0)
                     {
@@ -243,7 +258,7 @@ namespace DamianRaczkowskiLab2PracDom
                         return;
                     }
                     string userType = this.comboBoxUserType.SelectedItem.ToString();
-                    string[] userData = { firstName, secondName, lastName, phoneNumber, email, userType };
+                    string[] userData = { firstName, secondName, lastName, phoneNumber, email, userType, parentIndex};
                     this._usedDataObject.InsertData(userData);
                     break;
                 case DataType.Zajecia:

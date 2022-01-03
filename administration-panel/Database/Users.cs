@@ -54,6 +54,7 @@ namespace Database
                     insertProcedure.Parameters.AddWithValue("@userType", value);
                     insertProcedure.Parameters.AddWithValue("@ACTION", "INSERT");
                     insertProcedure.Parameters.AddWithValue("@password", "PPPP");
+                    insertProcedure.Parameters.AddWithValue("@parentId", int.Parse(data[6]));
                     _connection.Open();
                     insertProcedure.ExecuteNonQuery();
                     _connection.Close();
@@ -129,6 +130,7 @@ namespace Database
                 updateProcedure.Parameters.AddWithValue("@PhoneNumber", data[3]);
                 updateProcedure.Parameters.AddWithValue("@email", data[4]);
                 updateProcedure.Parameters.AddWithValue("@userType", value);
+                updateProcedure.Parameters.AddWithValue("@parentId", int.Parse(data[6]));
                 updateProcedure.Parameters.AddWithValue("@ACTION", "UPDATE");
                 updateProcedure.Parameters.AddWithValue("@userId", index);
                 _connection.Open();
@@ -137,5 +139,6 @@ namespace Database
             }
 
         }
+
     }
 }

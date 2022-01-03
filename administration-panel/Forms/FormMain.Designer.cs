@@ -40,7 +40,6 @@ namespace DamianRaczkowskiLab2PracDom
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxSecondName = new System.Windows.Forms.TextBox();
             this.comboBoxUserType = new System.Windows.Forms.ComboBox();
-            this.textBoxParentEmail = new System.Windows.Forms.TextBox();
             this.textBoxPhoneNumber = new System.Windows.Forms.TextBox();
             this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.textBoxLastName = new System.Windows.Forms.TextBox();
@@ -68,6 +67,7 @@ namespace DamianRaczkowskiLab2PracDom
             this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.beginDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.teacherGridView = new System.Windows.Forms.DataGridView();
+            this.parentComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsers)).BeginInit();
             this.panelUserData.SuspendLayout();
             this.panelButtons.SuspendLayout();
@@ -106,6 +106,7 @@ namespace DamianRaczkowskiLab2PracDom
             // 
             // panelUserData
             // 
+            this.panelUserData.Controls.Add(this.parentComboBox);
             this.panelUserData.Controls.Add(this.label6);
             this.panelUserData.Controls.Add(this.label5);
             this.panelUserData.Controls.Add(this.label4);
@@ -114,7 +115,6 @@ namespace DamianRaczkowskiLab2PracDom
             this.panelUserData.Controls.Add(this.label1);
             this.panelUserData.Controls.Add(this.textBoxSecondName);
             this.panelUserData.Controls.Add(this.comboBoxUserType);
-            this.panelUserData.Controls.Add(this.textBoxParentEmail);
             this.panelUserData.Controls.Add(this.textBoxPhoneNumber);
             this.panelUserData.Controls.Add(this.textBoxEmail);
             this.panelUserData.Controls.Add(this.textBoxLastName);
@@ -138,11 +138,11 @@ namespace DamianRaczkowskiLab2PracDom
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(3, 118);
+            this.label5.Location = new System.Drawing.Point(3, 123);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(80, 32);
+            this.label5.Size = new System.Drawing.Size(50, 16);
             this.label5.TabIndex = 11;
-            this.label5.Text = "Adres email\r\n Rodzica";
+            this.label5.Text = "Rodzic";
             this.label5.Visible = false;
             // 
             // label4
@@ -203,14 +203,6 @@ namespace DamianRaczkowskiLab2PracDom
             this.comboBoxUserType.Name = "comboBoxUserType";
             this.comboBoxUserType.Size = new System.Drawing.Size(185, 21);
             this.comboBoxUserType.TabIndex = 5;
-            // 
-            // textBoxParentEmail
-            // 
-            this.textBoxParentEmail.Location = new System.Drawing.Point(143, 118);
-            this.textBoxParentEmail.Name = "textBoxParentEmail";
-            this.textBoxParentEmail.Size = new System.Drawing.Size(185, 20);
-            this.textBoxParentEmail.TabIndex = 4;
-            this.textBoxParentEmail.Visible = false;
             // 
             // textBoxPhoneNumber
             // 
@@ -384,7 +376,7 @@ namespace DamianRaczkowskiLab2PracDom
             this.subjectPanel.Controls.Add(this.endDateTimePicker);
             this.subjectPanel.Controls.Add(this.beginDateTimePicker);
             this.subjectPanel.Controls.Add(this.teacherGridView);
-            this.subjectPanel.Location = new System.Drawing.Point(12, 350);
+            this.subjectPanel.Location = new System.Drawing.Point(111, 113);
             this.subjectPanel.Name = "subjectPanel";
             this.subjectPanel.Size = new System.Drawing.Size(524, 231);
             this.subjectPanel.TabIndex = 7;
@@ -462,6 +454,14 @@ namespace DamianRaczkowskiLab2PracDom
             this.teacherGridView.Size = new System.Drawing.Size(316, 225);
             this.teacherGridView.TabIndex = 0;
             // 
+            // parentComboBox
+            // 
+            this.parentComboBox.FormattingEnabled = true;
+            this.parentComboBox.Location = new System.Drawing.Point(142, 123);
+            this.parentComboBox.Name = "parentComboBox";
+            this.parentComboBox.Size = new System.Drawing.Size(185, 21);
+            this.parentComboBox.TabIndex = 12;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -510,7 +510,6 @@ namespace DamianRaczkowskiLab2PracDom
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxSecondName;
         private System.Windows.Forms.ComboBox comboBoxUserType;
-        private System.Windows.Forms.TextBox textBoxParentEmail;
         private System.Windows.Forms.TextBox textBoxPhoneNumber;
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.TextBox textBoxLastName;
@@ -538,6 +537,7 @@ namespace DamianRaczkowskiLab2PracDom
         private System.Windows.Forms.TextBox subjectNameTextBox;
         private System.Windows.Forms.CheckBox generateLessonsCheckbox;
         private System.Windows.Forms.TextBox classNameTextBox;
+        private System.Windows.Forms.ComboBox parentComboBox;
     }
 }
 
