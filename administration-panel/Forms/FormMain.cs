@@ -101,6 +101,18 @@ namespace DamianRaczkowskiLab2PracDom
                 Users user = new Users();
                 this.teacherGridView.DataSource = user.GetSpecifiedUserData(UserType.Nauczyciel);
             }
+            if(this._usedDataObject.GetDataType() == DataType.Uzytkownicy)
+            {
+                Users user = new Users();
+                DataTable table = user.GetSpecifiedUserData(UserType.Rodzic);
+
+                table.Columns.Add("Combined", typeof(string), "FirstName+' '+LastName");
+                this.parentComboBox.DataSource = table;
+                this.parentComboBox.DisplayMember =table.Columns[table.Columns.Count-1].ColumnName;
+                this.parentComboBox.ValueMember = table.Columns[0].ColumnName;
+                this.parentComboBox.SelectedItem = null;
+                this.dataGridViewUsers.Columns[0].Visible = false;
+            }
         }
 
         /// <summary>
@@ -243,9 +255,20 @@ namespace DamianRaczkowskiLab2PracDom
                         return;
                     }
                     string userType = this.comboBoxUserType.SelectedItem.ToString();
-                    string[] userData = { firstName, secondName, lastName, phoneNumber, email, userType };
+                    string[] userData;
+                    if (this.parentComboBox.SelectedIndex != -1)
+                    {
+                        string parentIndex = this.parentComboBox.SelectedValue.ToString();
+                        userData = new string[] { firstName, secondName, lastName, phoneNumber, email, userType, parentIndex };
+                    }
+                    else
+                    {
+                        userData = new string[] { firstName, secondName, lastName, phoneNumber, email, userType, null };
+                    }
                     this._usedDataObject.InsertData(userData);
                     break;
+
+
                 case DataType.Zajecia:
                     // MessageBox.Show("Nie uzupełniłeś wszystkich pól (Zajecia)");
                     string subjectName = this.subjectNameTextBox.Text;
@@ -271,9 +294,8 @@ namespace DamianRaczkowskiLab2PracDom
                     string[] data;
                     if (generateDates)
                     {
-                        // TODO: implement generating dates for given space of itme 
                         //Console.WriteLine(dateStart.ToString());
-                        Console.WriteLine($"{subjectName}, {classToBeAllocatedWith}");
+                        //Console.WriteLine($"{subjectName}, {classToBeAllocatedWith}");
                         data = new string[] { teacherId, subjectName, classToBeAllocatedWith, dateStart.ToString("s"), endDay.ToString("s"), endDate.ToString("s") }; 
                     }
                     else
@@ -311,8 +333,12 @@ namespace DamianRaczkowskiLab2PracDom
             switch (dataType)
             {
                 case DataType.Uzytkownicy:
-                    string[] userFieldsData = { this.textBoxFirstName.Text, this.textBoxSecondName.Text, this.textBoxLastName.Text, this.textBoxPhoneNumber.Text, this.textBoxEmail.Text, this.comboBoxUserType.SelectedItem.ToString() };
-                    return userFieldsData;
+                    if (this.parentComboBox.SelectedIndex !=-1)
+                        return new string[]{ this.textBoxFirstName.Text, this.textBoxSecondName.Text, this.textBoxLastName.Text, this.textBoxPhoneNumber.Text, 
+                                             this.textBoxEmail.Text, this.comboBoxUserType.SelectedItem.ToString(), this.parentComboBox.SelectedValue.ToString()};
+                    else
+                        return new string[]{ this.textBoxFirstName.Text, this.textBoxSecondName.Text, this.textBoxLastName.Text, this.textBoxPhoneNumber.Text,
+                                             this.textBoxEmail.Text, this.comboBoxUserType.SelectedItem.ToString() };
 
                 case DataType.Klasy:
                     string className = this.textBoxClassName.Text;
@@ -350,7 +376,6 @@ namespace DamianRaczkowskiLab2PracDom
                     string[] data;
                     if (generateDates)
                     {
-                        // TODO: implement generating dates for given space of itme 
                         //Console.WriteLine(dateStart.ToString());
                         Console.WriteLine($"{subjectName}, {classToBeAllocatedWith}");
                         data = new string[] { teacherId, subjectName, classToBeAllocatedWith, dateStart.ToString("s"), endDay.ToString("s"), endDate.ToString("s") };
