@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SchoolEJournalWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,12 @@ namespace SchoolEJournalWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            // Add connection to a database
+            var connectionString = Configuration.GetConnectionString("SchoolEJournalDBContext");
+            services.AddDbContext<SchoolEJournalDbContext>(opt => opt.UseSqlServer(connectionString));
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

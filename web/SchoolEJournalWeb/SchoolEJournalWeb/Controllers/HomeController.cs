@@ -20,6 +20,7 @@ namespace SchoolEJournalWeb.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
 
