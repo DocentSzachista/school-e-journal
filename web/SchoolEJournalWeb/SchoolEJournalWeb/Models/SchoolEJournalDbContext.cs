@@ -24,6 +24,5 @@ namespace SchoolEJournalWeb.Models
         public DbSet<GradesGroups> GradesGroups { get; set; }
         public DbSet<TeachersMembership> TeachersMemberships { get; set; }
 
-
     }
 }

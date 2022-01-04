@@ -22,7 +22,13 @@ namespace SchoolEJournalWeb.Controllers
         public IActionResult Index()
         {
 
-            return View(new LoginData());
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Index(LoginData loginData)
+        {
+            Console.WriteLine($" {loginData.Login} {loginData.Password}");
+            return RedirectToAction("Index", "User");
         }
 
         public IActionResult Privacy()
