@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SchoolEJournalWeb.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,16 @@ namespace SchoolEJournalWeb.Models
         {
 
         }
-        
+        public DbSet<Users> Users { get; set; }
+        public DbSet<LoginData> LoginData { get; set; }
+        public DbSet<Attendances> Attendances { get; set; }
+        public DbSet<Subjects> Subjects  { get; set; }
+        public DbSet<Lessons> Lessons { get; set; }
+        public DbSet<Classes> Classes{ get; set; }
+        public DbSet<Grades> Grades { get; set; }
+        public DbSet<GradesGroups> GradesGroups { get; set; }
+        public DbSet<TeachersMembership> TeachersMemberships { get; set; }
+
+
     }
 }
