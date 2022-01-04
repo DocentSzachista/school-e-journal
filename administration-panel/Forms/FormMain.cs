@@ -251,7 +251,7 @@ namespace DamianRaczkowskiLab2PracDom
                     string lastName = this.textBoxLastName.Text;
                     string phoneNumber = this.textBoxPhoneNumber.Text;
                     string email = this.textBoxEmail.Text;
-                    string parentIndex =  this.parentComboBox.SelectedIndex.ToString();
+                    
                     if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email)
                          || this.comboBoxUserType.SelectedIndex < 0)
                     {
