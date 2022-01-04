@@ -1,12 +1,17 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+
 }
 
-<div class="text-center">
-	<h2>Logowanie</h2>
-	<input placeholder="Login", id="LoginInput"/>
-	<br />
-	<input type="password", placeholder="Hasło", id="PasswordInput" />
-	<br />
-	<button type="submit">Zaloguj</button>
-</div>
+
+@using (@Html.BeginForm("Index", "Home", FormMethod.Get))
+{
+    <div class="text-center">
+        <h2>Logowanie</h2>
+        <input placeholder="Login" id="LoginInput" />
+        <br />
+        <input type="password"  placeholder="Hasło"  id="PasswordInput" />
+        <br />
+        <button type="submit">Zaloguj</button>
+    </div>
+}
