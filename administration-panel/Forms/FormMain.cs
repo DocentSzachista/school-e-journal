@@ -200,9 +200,12 @@ namespace DamianRaczkowskiLab2PracDom
             if (!this.userInteractivePanels.TryGetValue(dataType, out panel))
                 return;
             foreach (Control control in panel.Controls)
+            {
                 if (control is TextBox)
                     control.Text = "";
-
+                if (control is ComboBox)
+                   if( control.Equals(this.parentComboBox)) this.parentComboBox.SelectedIndex=-1;
+            }
         }
 
 
@@ -248,6 +251,7 @@ namespace DamianRaczkowskiLab2PracDom
                     string lastName = this.textBoxLastName.Text;
                     string phoneNumber = this.textBoxPhoneNumber.Text;
                     string email = this.textBoxEmail.Text;
+                    string parentIndex =  this.parentComboBox.SelectedIndex.ToString();
                     if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email)
                          || this.comboBoxUserType.SelectedIndex < 0)
                     {
