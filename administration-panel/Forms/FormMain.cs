@@ -445,5 +445,18 @@ namespace DamianRaczkowskiLab2PracDom
             else
                 MessageBox.Show("Musisz wybrać dokładnie jednego użytkownika do zmiany hasła");
         }
-    }
+
+		private void showLessonsButton_Click(object sender, EventArgs e)
+		{
+            if(_usedDataObject.GetDataType() == DataType.Zajecia && this.dataGridViewUsers.SelectedRows.Count == 1)
+			{
+                DataGridViewRow row = this.dataGridViewUsers.SelectedRows[0];
+                int subjectId = int.Parse(row.Cells[0].Value.ToString());
+                SubjectCalendar subjectCalendar = new SubjectCalendar(subjectId);
+                subjectCalendar.ShowDialog();
+            }
+            else
+                MessageBox.Show("Musisz wybrać dokładnie jeden przedmiot do wyświetlenia lekcji");
+        }
+	}
 }
