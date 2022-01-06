@@ -7,7 +7,6 @@
 {
 <div class="text-center ">
     <h2>Logowanie</h2>
-    <br />
     <div class="form-group">
         @Html.LabelFor(model => model.Login)
 
@@ -18,7 +17,6 @@
             @required = "required"
         })
     </div>
-    <br />
     <div class="form-group">
         @Html.LabelFor(model => model.Password);
         @Html.TextBoxFor(model => model.Password,
@@ -29,7 +27,6 @@
                @type = "password"
         })
     </div>
-    <br />
     <button class="btn btn-primary"  type="submit">Zaloguj</button>
 </div>
 }

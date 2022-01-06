@@ -1,0 +1,15 @@
+﻿@{
+	ViewData["Title"] = "Kalendarz";
+}
+
+@using (Html.BeginForm("", "", FormMethod.Post))
+{
+	<label for="SelectedDate">Dzień: </label>
+	<input id="SelectedDate" type="date" onchange="DateChanged()"/>
+
+	<script>
+		function DateChanged() {
+			alert(document.getElementById("SelectedDate").value);
+		}
+	</script>
+}
