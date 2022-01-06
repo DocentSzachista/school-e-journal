@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SchoolEJournalWeb.Encryption;
 using SchoolEJournalWeb.Models;
 
 using System;
@@ -26,10 +27,22 @@ namespace SchoolEJournalWeb.Controllers
         [HttpPost]
         public IActionResult Index(LoginDatum loginData)
         {
-            Console.WriteLine($" {loginData.Login} {loginData.Password}");
-            var xD = _context.Users.Select(s => s.FirstName).ToList();
-
-            return RedirectToAction("Index", "User");
+            try
+            {
+                Console.WriteLine($" {loginData.Login} {loginData.Password}");
+                var dataBaseData = _context.LoginData.SingleOrDefault(entity => entity.Login.Equals(loginData.Login));
+                Console.WriteLine(dataBaseData.Password);
+                if (PasswordChecker.VerifyPassword(loginData.Password, dataBaseData.Password))
+                    return RedirectToAction("Index", "User");
+                else
+                    
+                    return Unauthorized();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.GetBaseException());
+                return Unauthorized();
+            }
         }
 
         public IActionResult Privacy()
