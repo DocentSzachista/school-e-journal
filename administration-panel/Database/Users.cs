@@ -134,8 +134,9 @@ namespace Database
                 updateProcedure.Parameters.AddWithValue("@PhoneNumber", data[3]);
                 updateProcedure.Parameters.AddWithValue("@email", data[4]);
                 updateProcedure.Parameters.AddWithValue("@userType", value);
-                updateProcedure.Parameters.AddWithValue("@parentId", int.Parse(data[6]));
-                Console.WriteLine(int.Parse(data[6]));
+                if(data.Length >6)
+                    updateProcedure.Parameters.AddWithValue("@parentId", int.Parse(data[6]));
+                //Console.WriteLine(int.Parse(data[6]));
                 updateProcedure.Parameters.AddWithValue("@ACTION", "UPDATE");
                 updateProcedure.Parameters.AddWithValue("@userId", index);
                 _connection.Open();

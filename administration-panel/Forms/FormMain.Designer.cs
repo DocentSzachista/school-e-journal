@@ -32,6 +32,7 @@ namespace DamianRaczkowskiLab2PracDom
             this.dataGridViewUsers = new System.Windows.Forms.DataGridView();
             this.comboBoxViewChanger = new System.Windows.Forms.ComboBox();
             this.panelUserData = new System.Windows.Forms.Panel();
+            this.parentComboBox = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -67,7 +68,6 @@ namespace DamianRaczkowskiLab2PracDom
             this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.beginDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.teacherGridView = new System.Windows.Forms.DataGridView();
-            this.parentComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsers)).BeginInit();
             this.panelUserData.SuspendLayout();
             this.panelButtons.SuspendLayout();
@@ -123,6 +123,14 @@ namespace DamianRaczkowskiLab2PracDom
             this.panelUserData.Name = "panelUserData";
             this.panelUserData.Size = new System.Drawing.Size(431, 215);
             this.panelUserData.TabIndex = 3;
+            // 
+            // parentComboBox
+            // 
+            this.parentComboBox.FormattingEnabled = true;
+            this.parentComboBox.Location = new System.Drawing.Point(142, 123);
+            this.parentComboBox.Name = "parentComboBox";
+            this.parentComboBox.Size = new System.Drawing.Size(185, 21);
+            this.parentComboBox.TabIndex = 12;
             // 
             // label6
             // 
@@ -376,7 +384,7 @@ namespace DamianRaczkowskiLab2PracDom
             this.subjectPanel.Controls.Add(this.endDateTimePicker);
             this.subjectPanel.Controls.Add(this.beginDateTimePicker);
             this.subjectPanel.Controls.Add(this.teacherGridView);
-            this.subjectPanel.Location = new System.Drawing.Point(111, 113);
+            this.subjectPanel.Location = new System.Drawing.Point(15, 350);
             this.subjectPanel.Name = "subjectPanel";
             this.subjectPanel.Size = new System.Drawing.Size(524, 231);
             this.subjectPanel.TabIndex = 7;
@@ -453,14 +461,6 @@ namespace DamianRaczkowskiLab2PracDom
             this.teacherGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.teacherGridView.Size = new System.Drawing.Size(316, 225);
             this.teacherGridView.TabIndex = 0;
-            // 
-            // parentComboBox
-            // 
-            this.parentComboBox.FormattingEnabled = true;
-            this.parentComboBox.Location = new System.Drawing.Point(142, 123);
-            this.parentComboBox.Name = "parentComboBox";
-            this.parentComboBox.Size = new System.Drawing.Size(185, 21);
-            this.parentComboBox.TabIndex = 12;
             // 
             // FormMain
             // 
