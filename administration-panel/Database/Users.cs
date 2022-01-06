@@ -55,7 +55,7 @@ namespace Database
                     insertProcedure.Parameters.AddWithValue("@email", data[4]);
                     insertProcedure.Parameters.AddWithValue("@userType", value);
                     insertProcedure.Parameters.AddWithValue("@ACTION", "INSERT");
-                    insertProcedure.Parameters.AddWithValue("@password", "PPPP");
+                    insertProcedure.Parameters.AddWithValue("@password", Logins.EncryptPassword("q12w3e4r"));
                     if(data[6] != null)  
                         insertProcedure.Parameters.AddWithValue("@parentId", int.Parse(data[6]));
                     _connection.Open();

@@ -51,9 +51,9 @@ namespace Database
 		/// </summary>
 		/// <param name="password"></param>
 		/// <returns></returns>
-		private string EncryptPassword(string password)
+		public static string EncryptPassword(string password)
         {
-			return password.GetHashCode().ToString();
+			return BCrypt.Net.BCrypt.HashPassword(password); 
         }
 		public bool CheckPassword(string login, string password)
 		{
@@ -61,19 +61,21 @@ namespace Database
 			{
 				_connection.Open();
 
-				string readQuery = $"SELECT Users.UserType, Users.UserId FROM LoginData " +
+				string readQuery = $"SELECT Users.UserType, Users.UserId, LoginData.Password FROM LoginData " +
 								   $"JOIN Users ON Users.UserId=LoginData.UserId " +
-								   $"WHERE Login='{login}' AND Password='{EncryptPassword(password)}' AND Users.UserType={(int)UserType.Admin};";
+								   $"WHERE Login='{login}' AND Users.UserType={(int)UserType.Admin};";
 				SqlDataAdapter dataAdapter = new SqlDataAdapter(readQuery, _connection);
 				DataTable dataTable = new DataTable();
 				dataAdapter.Fill(dataTable);
 				_connection.Close();
-				this.currentUserId = int.Parse(dataTable.Rows[0]["UserId"].ToString());
+				if (BCrypt.Net.BCrypt.Verify(EncryptPassword(password), dataTable.Rows[0]["Password"].ToString()))
+					this.currentUserId = int.Parse(dataTable.Rows[0]["UserId"].ToString());
+			
 
 				return dataTable.Rows.Count == 1;
 			} catch(Exception e)
             {
-				Console.WriteLine("Something went wrong");
+				Console.WriteLine(e.GetBaseException());
 				return false;
             }
 		}
