@@ -1,15 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using SchoolEJournalWeb.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SchoolEJournalWeb
 {
@@ -30,14 +27,15 @@ namespace SchoolEJournalWeb
             // Add connection to a database
             var connectionString = Configuration.GetConnectionString("SchoolEJournalDBContext");
             services.AddDbContext<SchoolEJournalContext>(opt => opt.UseSqlServer(connectionString));
-
+            // add a cookie
             services.AddAuthentication(cookieNameScheme)
                 .AddCookie(cookieNameScheme, options => 
                 {
                     options.LoginPath = "/Authentication/login";
                     options.AccessDeniedPath = "/Authentication/denied";
                 });
-
+            // add a HttpCOntextAccessor
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
