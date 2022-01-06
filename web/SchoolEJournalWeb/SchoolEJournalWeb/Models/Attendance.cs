@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace SchoolEJournalWeb.Repository
+#nullable disable
+
+namespace SchoolEJournalWeb.Models
 {
-    public class Attendances
+    public partial class Attendance
     {
-        [Key]
         public int AttendanceId { get; set; }
-        [Required]
         public int Attended { get; set; }
-        [Required]
         public int StudentId { get; set; }
-        [Required]
         public int LessonId { get; set; }
+
+        public virtual Lesson Lesson { get; set; }
     }
 }

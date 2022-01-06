@@ -28,7 +28,7 @@ namespace SchoolEJournalWeb
             services.AddControllersWithViews();
             // Add connection to a database
             var connectionString = Configuration.GetConnectionString("SchoolEJournalDBContext");
-            services.AddDbContext<SchoolEJournalDbContext>(opt => opt.UseSqlServer(connectionString));
+            services.AddDbContext<SchoolEJournalContext>(opt => opt.UseSqlServer(connectionString));
 
 
 

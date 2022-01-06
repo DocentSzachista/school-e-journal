@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace SchoolEJournalWeb.Repository
+#nullable disable
+
+namespace SchoolEJournalWeb.Models
 {
-    public class Grades
+    public partial class Grade
     {
         public int GradeId { get; set; }
         public int Value { get; set; }
         public int StudentId { get; set; }
         public int GradeGroupId { get; set; }
+
+        public virtual GradesGroup GradeGroup { get; set; }
     }
 }

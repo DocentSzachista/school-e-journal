@@ -1,20 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using SchoolEJournalWeb.Models;
-using SchoolEJournalWeb.Repository;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace SchoolEJournalWeb.Controllers
 {
     public class HomeController : Controller
     {
         //        private readonly ILogger<HomeController> _logger;
-        private readonly SchoolEJournalDbContext _context;
-        public HomeController(SchoolEJournalDbContext context)
+        private readonly SchoolEJournalContext _context;
+        public HomeController(SchoolEJournalContext context)
         {
             _context = context;
         }
@@ -25,9 +24,11 @@ namespace SchoolEJournalWeb.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Index(LoginData loginData)
+        public IActionResult Index(LoginDatum loginData)
         {
             Console.WriteLine($" {loginData.Login} {loginData.Password}");
+            var xD = _context.Users.Select(s => s.FirstName).ToList();
+
             return RedirectToAction("Index", "User");
         }
 

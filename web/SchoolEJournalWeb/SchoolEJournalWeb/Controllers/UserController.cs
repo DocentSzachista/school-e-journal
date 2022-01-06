@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SchoolEJournalWeb.Models;
-using SchoolEJournalWeb.Repository;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,8 +11,8 @@ namespace SchoolEJournalWeb.Controllers
 {
     public class UserController : Controller
     {
-        private readonly SchoolEJournalDbContext _context;
-        public UserController(SchoolEJournalDbContext context)
+        private readonly SchoolEJournalContext _context;
+        public UserController(SchoolEJournalContext context)
         {
             _context = context;
         }
