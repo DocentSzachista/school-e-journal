@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SchoolEJournalWeb.Encryption;
 using SchoolEJournalWeb.Models;
 
@@ -19,12 +20,14 @@ namespace SchoolEJournalWeb.Controllers
             _context = context;
         }
 
+
+        [Authorize(AuthenticationSchemes = "myCookie")]
         public IActionResult Index()
         {
 
             return View();
         }
-        [HttpPost]
+    /*    [HttpPost]
         public IActionResult Index(LoginDatum loginData)
         {
             try
@@ -34,17 +37,17 @@ namespace SchoolEJournalWeb.Controllers
                 Console.WriteLine(dataBaseData.Password);
                 if (PasswordChecker.VerifyPassword(loginData.Password, dataBaseData.Password))
                     return RedirectToAction("Index", "User");
+                // TODO : add custom page for login fail
                 else
-                    
                     return Unauthorized();
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.GetBaseException());
+                // TODO: Same as in try block 
                 return Unauthorized();
             }
-        }
-
+        }*/
+        [Authorize(AuthenticationSchemes = "myCookie")]
         public IActionResult Privacy()
         {
             return View();

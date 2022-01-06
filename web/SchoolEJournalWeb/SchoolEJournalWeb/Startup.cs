@@ -22,6 +22,7 @@ namespace SchoolEJournalWeb
 
         public IConfiguration Configuration { get; }
 
+        private static readonly string cookieNameScheme = "myCookie";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -30,7 +31,12 @@ namespace SchoolEJournalWeb
             var connectionString = Configuration.GetConnectionString("SchoolEJournalDBContext");
             services.AddDbContext<SchoolEJournalContext>(opt => opt.UseSqlServer(connectionString));
 
-
+            services.AddAuthentication(cookieNameScheme)
+                .AddCookie(cookieNameScheme, options => 
+                {
+                    options.LoginPath = "/Authentication/login";
+                    options.AccessDeniedPath = "/Authentication/denied";
+                });
 
         }
 
