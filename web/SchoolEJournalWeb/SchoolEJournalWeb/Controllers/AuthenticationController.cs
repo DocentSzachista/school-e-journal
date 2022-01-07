@@ -63,7 +63,7 @@ namespace SchoolEJournalWeb.Controllers
         {
             var dataBaseData = _context.LoginData.Single(entity => entity.Login.Equals(loginData.Login));
             
-            Console.WriteLine(dataBaseData.Password);
+           
             if (PasswordChecker.VerifyPassword(loginData.Password, dataBaseData.Password))
             {
                 loginData.UserId = dataBaseData.UserId;
