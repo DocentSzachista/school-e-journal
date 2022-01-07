@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SchoolEJournalWeb.Controllers
@@ -68,7 +69,36 @@ namespace SchoolEJournalWeb.Controllers
             _context.SaveChangesAsync();
             return View("~/Views/User/SharedResources/ChangeUserData.cshtml");
         }
+        [HttpGet]
+        public IActionResult ShowAttendance(int lessonId)
+        {
+            var type= UserType.Student;
+            List<string> attendances = new List<string>(); 
+            switch(type)
+            {
 
+                case UserType.Parent:
+                case UserType.Student:
+                    var studentAttendance = (from attendance in _context.Attendances
+                                             join student in _context.Users on attendance.StudentId equals student.UserId
+                                             where attendance.LessonId == lessonId && attendance.StudentId == int.Parse(HttpContext.User.Claims.ToList()[0].Value)
+                                  select $" {attendance.Attended}  {student.FirstName + student.LastName}").FirstOrDefault();
+                    attendances.Add(studentAttendance);
+                break;
+                case UserType.Teacher:
+                    var studentList = (from attendance in _context.Attendances
+                                       join student in _context.Users on attendance.StudentId equals student.UserId
+                                      where attendance.LessonId == lessonId
+                                      select $" {attendance.Attended}  {student.FirstName + student.LastName}");
+                    foreach(var text in studentList)
+                    {
+                        attendances.Add(text);
+                    }
+                break;
+            }
+            ViewData["Attendance"] = attendances;
+            return View();
+        }
 
     }
 }

@@ -50,6 +50,7 @@ namespace SchoolEJournalWeb.Controllers
 				select $"{l.SubjectName} ({l.StartTime.ToShortTimeString()} - {l.EndTime.ToShortTimeString()}) Temat: {(string.IsNullOrEmpty(l.Topic) ? "Brak tematu" : l.Topic)}";
 
 			foreach (string lessonText in query)
+
 				returnList.Add(lessonText);
 
 			return returnList;
