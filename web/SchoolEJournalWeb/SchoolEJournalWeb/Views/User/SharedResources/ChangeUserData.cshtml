@@ -8,41 +8,45 @@
 
 @using (Html.BeginForm("Update", "User", FormMethod.Post))
 {
-<div class="text-center">
-    <h3> Dane, jakie możesz zmienić </h3>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            @Html.LabelFor(model => model.FirstName)
-            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
-        </div>
-        <div class="form-group col-md-6">
-            @Html.LabelFor(model => model.LastName)
-            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+    @Html.AntiForgeryToken()
+    <div class="text-center">
+        
+
+        
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.FirstName)
+                @Html.EditorFor(model => model.FirstName, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.LastName)
+                @Html.EditorFor(model => model.LastName, new { @class = "form-control" })
+            </div>
+
         </div>
 
-    </div>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            @Html.LabelFor(model => model.SecondName)
-            @Html.TextBoxFor(model => model.SecondName, new { @class = "form-control" })
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.SecondName)
+                @Html.EditorFor(model => model.SecondName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.PhoneNumber)
+                @Html.EditorFor(model => model.PhoneNumber, new { @class = "form-control" })
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.Email)
+                @Html.EditorFor(model => model.Email, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <input class="btn btn-primary" type="submit" value="Zaktualizuj" />
+                <a href ="@Url.Action("Index", "User")" ><input class="btn btn-dark" type="button" value="Cofnij" /></a>
+            </div>
         </div>
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            @Html.LabelFor(model => model.PhoneNumber)
-            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
-        </div>
-        <div class="form-group col-md-6">
-            @Html.LabelFor(model => model.Email)
-            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-12">
-            <input class="btn btn-primary" type="submit" value="Zaktualizuj" />
-            <input class="btn btn-dark" type="button" value="Cofnij" href="@Url.Action("Index", "User")" />
-        </div>
-        </div>
-    </div>        
 }

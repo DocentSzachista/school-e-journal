@@ -27,25 +27,27 @@ namespace SchoolEJournalWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> LoginAsync(LoginDatum loginData, string returnUrl = null)
         {
+            //Console.WriteLine(loginData.Password);
             if(ModelState.IsValid)
             {
                 if(ValidateUser(loginData))
                 {
                     var claims = new List<Claim>
                     {
-                       // new Claim("user", loginData.UserId.ToString()),
-                        new Claim("user", "1"),
+                        new Claim(ClaimTypes.Name, loginData.UserId.ToString()),
                         new Claim("role", "member")
                     };
-                    await HttpContext.SignInAsync(new ClaimsPrincipal(new ClaimsIdentity(claims, "Cookies", "user", "role" )));
+                    var indentity = new ClaimsIdentity(claims, "myCookie");
+                    ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(indentity);
+                    await HttpContext.SignInAsync(claimsPrincipal);
 
                     if(returnUrl != null)
                     {
-                        Redirect(returnUrl);
+                        return RedirectToPage(returnUrl);
                     }
                     else
                     {
-                        Redirect("/");
+                        return RedirectToPage("/Home/Index");
                     }
 
                 }
@@ -59,10 +61,15 @@ namespace SchoolEJournalWeb.Controllers
 
         private bool ValidateUser(LoginDatum loginData)
         {
-            var dataBaseData = _context.LoginData.SingleOrDefault(entity => entity.Login.Equals(loginData.Login));
+            var dataBaseData = _context.LoginData.Single(entity => entity.Login.Equals(loginData.Login));
+            
+            Console.WriteLine(dataBaseData.Password);
             if (PasswordChecker.VerifyPassword(loginData.Password, dataBaseData.Password))
+            {
+                loginData.UserId = dataBaseData.UserId;
                 return true;
-            return false;
+            }
+                return false;
         }
 
         public IActionResult LogOut()

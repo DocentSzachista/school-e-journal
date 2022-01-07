@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Witaj";
 }
+<h1> Cześć  @ViewData["UserName"] </h1>
 @Html.ActionLink("Zmień hasło", "ChangePassword", "User")
 @Html.ActionLink("Zmień swoje dane", "EditData", "User")
 @Html.ActionLink("Wyświetl kalendarz", "ShowCalendar", "Calendar")

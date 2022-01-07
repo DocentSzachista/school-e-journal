@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-
+using System.Security.Claims;
 
 namespace SchoolEJournalWeb.Controllers
 {
@@ -24,29 +24,12 @@ namespace SchoolEJournalWeb.Controllers
         [Authorize(AuthenticationSchemes = "myCookie")]
         public IActionResult Index()
         {
-
+            var cookieData = HttpContext.User.Claims.ToList();
+            Console.WriteLine(cookieData[0].Value);
+            ViewBag.UserName = cookieData[1].Value;
             return View();
         }
-    /*    [HttpPost]
-        public IActionResult Index(LoginDatum loginData)
-        {
-            try
-            {
-                Console.WriteLine($" {loginData.Login} {loginData.Password}");
-                var dataBaseData = _context.LoginData.SingleOrDefault(entity => entity.Login.Equals(loginData.Login));
-                Console.WriteLine(dataBaseData.Password);
-                if (PasswordChecker.VerifyPassword(loginData.Password, dataBaseData.Password))
-                    return RedirectToAction("Index", "User");
-                // TODO : add custom page for login fail
-                else
-                    return Unauthorized();
-            }
-            catch(Exception e)
-            {
-                // TODO: Same as in try block 
-                return Unauthorized();
-            }
-        }*/
+
         [Authorize(AuthenticationSchemes = "myCookie")]
         public IActionResult Privacy()
         {

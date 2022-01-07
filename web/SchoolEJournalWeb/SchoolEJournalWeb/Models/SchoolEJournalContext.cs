@@ -343,5 +343,9 @@ namespace SchoolEJournalWeb.Models
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+       
+
+
     }
 }

@@ -19,19 +19,27 @@ namespace SchoolEJournalWeb.Controllers
             _context = context;
         }
         [Authorize(AuthenticationSchemes = "myCookie")]
-        public IActionResult Index()
-        { 
-            return View();
-        }
-        [Authorize(AuthenticationSchemes = "myCookie")]
         public IActionResult ChangePassword()
         {
+            
             return View("~/Views/User/SharedResources/ChangePassword.cshtml");
         }
         [Authorize(AuthenticationSchemes = "myCookie")]
         public IActionResult EditData()
         {
+            var userId = HttpContext.User.Claims.ToList()[0].Value;
+            var user = _context.Users.Where(user => user.UserId == int.Parse(userId)).FirstOrDefault();
+            ViewBag.userId = userId;
+            return View("~/Views/User/SharedResources/ChangeUserData.cshtml", user);
+        }
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = "myCookie")]
+        public IActionResult EditData(User providedUserData, int userId)
+        {
+            
             return View("~/Views/User/SharedResources/ChangeUserData.cshtml");
         }
+
+
     }
 }

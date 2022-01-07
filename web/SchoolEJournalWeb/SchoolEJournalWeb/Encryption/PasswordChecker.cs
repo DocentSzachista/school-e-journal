@@ -14,7 +14,17 @@ namespace SchoolEJournalWeb.Encryption
         }
         public static bool VerifyPassword(string providedPassword, string databasePasswordHash)
         {
-            return BCrypt.Net.BCrypt.Verify(providedPassword, databasePasswordHash);
+            try
+            {
+                if (string.IsNullOrWhiteSpace(providedPassword) || string.IsNullOrEmpty(providedPassword))
+                    return false;
+                return BCrypt.Net.BCrypt.Verify(providedPassword, databasePasswordHash);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Hashes do not match");
+                return false;
+            }
         }
 
     }
