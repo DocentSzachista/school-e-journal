@@ -2,14 +2,26 @@
 	ViewData["Title"] = "Kalendarz";
 }
 
-@using (Html.BeginForm("", "", FormMethod.Post))
+@using (Html.BeginForm("ChangeDate", "Calendar"))
 {
-	<label for="SelectedDate">Dzień: </label>
-	<input id="SelectedDate" type="date" onchange="DateChanged()"/>
-
-	<script>
-		function DateChanged() {
-			alert(document.getElementById("SelectedDate").value);
-		}
-	</script>
+	<label for="selectedDate">Dzień: </label>
+	<input name="selectedDate" type="date" value="@ViewData["DisplayedDate"]" />
+	<input class="btn btn-primary" type="submit" value="Pokaż" />
+	<br />
+	<h2>Plan zajęć</h2>
+	List<string> data = (List<string>)ViewData["CalendarData"];
+	if (data.Count == 0)
+	{
+		<label>Brak zajęć</label>
+	}
+	else
+	{
+		<ol>
+			@foreach(string val in data)
+			{
+				<li>@val</li>
+			}
+		</ol>
+	}
+	
 }
