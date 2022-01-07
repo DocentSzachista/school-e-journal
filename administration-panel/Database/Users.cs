@@ -45,6 +45,7 @@ namespace Database
             int value = (int)(Enum.Parse(typeof(UserType), data[5]));
             try
             {
+                Console.WriteLine(data[7]);
                 using (SqlCommand insertProcedure = new SqlCommand("SP_DML_Users", _connection))
                 {
                     insertProcedure.CommandType = CommandType.StoredProcedure;
@@ -58,6 +59,8 @@ namespace Database
                     insertProcedure.Parameters.AddWithValue("@password", Logins.EncryptPassword("q12w3e4r"));
                     if(data[6] != null)  
                         insertProcedure.Parameters.AddWithValue("@parentId", int.Parse(data[6]));
+                    if(data[7] != null)
+                        insertProcedure.Parameters.AddWithValue("@classId", int.Parse(data[7]));
                     _connection.Open();
                     insertProcedure.ExecuteNonQuery();
                     _connection.Close();
@@ -134,8 +137,10 @@ namespace Database
                 updateProcedure.Parameters.AddWithValue("@PhoneNumber", data[3]);
                 updateProcedure.Parameters.AddWithValue("@email", data[4]);
                 updateProcedure.Parameters.AddWithValue("@userType", value);
-                if(data.Length >6)
+                if(data[6] != null)
                     updateProcedure.Parameters.AddWithValue("@parentId", int.Parse(data[6]));
+                if(data[7] != null)
+                    updateProcedure.Parameters.AddWithValue("@classId", int.Parse(data[7]));
                 //Console.WriteLine(int.Parse(data[6]));
                 updateProcedure.Parameters.AddWithValue("@ACTION", "UPDATE");
                 updateProcedure.Parameters.AddWithValue("@userId", index);

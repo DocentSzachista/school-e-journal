@@ -35,6 +35,7 @@ namespace DamianRaczkowskiLab2PracDom
             this.comboBoxViewChanger.DataSource = Enum.GetValues(typeof(DataType));
             this.comboBoxUserType.DropDownStyle = ComboBoxStyle.DropDownList;
             this.comboBoxViewChanger.DropDownStyle = ComboBoxStyle.DropDownList;
+            this.classComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             this.RefreshDataGrid();
             
         }
@@ -104,14 +105,26 @@ namespace DamianRaczkowskiLab2PracDom
             if(this._usedDataObject.GetDataType() == DataType.Uzytkownicy)
             {
                 Users user = new Users();
+                Classes klasa = new Classes();
                 DataTable table = user.GetSpecifiedUserData(UserType.Rodzic);
-
+                DataTable table_2 = klasa.FillComboBox();
                 table.Columns.Add("Combined", typeof(string), "FirstName+' '+LastName");
+                
+                
                 this.parentComboBox.DataSource = table;
                 this.parentComboBox.DisplayMember =table.Columns[table.Columns.Count-1].ColumnName;
                 this.parentComboBox.ValueMember = table.Columns[0].ColumnName;
                 this.parentComboBox.SelectedItem = null;
+                
+                this.classComboBox.DataSource = table_2;
+                this.classComboBox.ValueMember = table_2.Columns[0].ColumnName;
+                this.classComboBox.DisplayMember = table_2.Columns[1].ColumnName;
+                this.classComboBox.SelectedItem = null;
+
                 this.dataGridViewUsers.Columns[0].Visible = false;
+                this.dataGridViewUsers.Columns[6].Visible = false;
+                this.dataGridViewUsers.Columns[7].Visible = false;
+                this.dataGridViewUsers.Columns[8].Visible = false;
             }
         }
 
@@ -146,12 +159,21 @@ namespace DamianRaczkowskiLab2PracDom
                     string lastName = row.Cells[3].Value.ToString();
                     string phoneNumber = row.Cells[4].Value.ToString();
                     string email = row.Cells[5].Value.ToString();
-                    
+                    string userType = row.Cells[6].Value.ToString();
+                    string parent = row.Cells[7].Value.ToString();
+                    string classId = row.Cells[8].Value.ToString();
+
                     this.textBoxFirstName.Text = firstName;
                     this.textBoxSecondName.Text = secondName;
                     this.textBoxLastName.Text = lastName;
                     this.textBoxPhoneNumber.Text = phoneNumber;
                     this.textBoxEmail.Text = email;
+                    if (!string.IsNullOrEmpty(parent))
+                        this.parentComboBox.SelectedItem = parent;
+                    if (!string.IsNullOrEmpty(userType))
+                        this.comboBoxUserType.SelectedItem = userType;
+                    if (!string.IsNullOrEmpty(classId))
+                        this.classComboBox.SelectedItem = classId;
                     break;
                 // podmiana textboxów dla panelu Classes
                 case DataType.Klasy:
@@ -251,23 +273,24 @@ namespace DamianRaczkowskiLab2PracDom
                     string lastName = this.textBoxLastName.Text;
                     string phoneNumber = this.textBoxPhoneNumber.Text;
                     string email = this.textBoxEmail.Text;
-                    
+                   
                     if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(phoneNumber) || string.IsNullOrEmpty(email)
                          || this.comboBoxUserType.SelectedIndex < 0)
                     {
                         MessageBox.Show("Nie uzupełniłeś wszystkich pól");
                         return;
                     }
+                    string classId = this.classComboBox.SelectedValue.ToString();
                     string userType = this.comboBoxUserType.SelectedItem.ToString();
                     string[] userData;
                     if (this.parentComboBox.SelectedIndex != -1)
                     {
                         string parentIndex = this.parentComboBox.SelectedValue.ToString();
-                        userData = new string[] { firstName, secondName, lastName, phoneNumber, email, userType, parentIndex };
+                        userData = new string[] { firstName, secondName, lastName, phoneNumber, email, userType, parentIndex, classId };
                     }
                     else
                     {
-                        userData = new string[] { firstName, secondName, lastName, phoneNumber, email, userType, null };
+                        userData = new string[] { firstName, secondName, lastName, phoneNumber, email, userType, null, null };
                     }
                     this._usedDataObject.InsertData(userData);
                     break;
@@ -339,10 +362,10 @@ namespace DamianRaczkowskiLab2PracDom
                 case DataType.Uzytkownicy:
                     if (this.parentComboBox.SelectedIndex !=-1)
                         return new string[]{ this.textBoxFirstName.Text, this.textBoxSecondName.Text, this.textBoxLastName.Text, this.textBoxPhoneNumber.Text, 
-                                             this.textBoxEmail.Text, this.comboBoxUserType.SelectedItem.ToString(), this.parentComboBox.SelectedValue.ToString()};
+                                             this.textBoxEmail.Text, this.comboBoxUserType.SelectedItem.ToString(), this.parentComboBox.SelectedValue.ToString(), this.classComboBox.SelectedValue.ToString()};
                     else
                         return new string[]{ this.textBoxFirstName.Text, this.textBoxSecondName.Text, this.textBoxLastName.Text, this.textBoxPhoneNumber.Text,
-                                             this.textBoxEmail.Text, this.comboBoxUserType.SelectedItem.ToString() };
+                                             this.textBoxEmail.Text, this.comboBoxUserType.SelectedItem.ToString(), this.parentComboBox.SelectedValue.ToString(), this.classComboBox.SelectedValue.ToString() };
 
                 case DataType.Klasy:
                     string className = this.textBoxClassName.Text;

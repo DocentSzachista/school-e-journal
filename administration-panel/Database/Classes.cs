@@ -91,5 +91,15 @@ namespace Database
             }
             _connection.Close();
         }
+        public DataTable FillComboBox()
+        {
+            _connection.Open();
+            string readQuery = "SELECT ClassId, ClassName FROM Classes";
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(readQuery, _connection);
+            DataTable dataTable = new DataTable();
+            dataAdapter.Fill(dataTable);
+            _connection.Close();
+            return dataTable;
+        }
     }
 }

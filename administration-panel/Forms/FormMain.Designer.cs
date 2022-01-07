@@ -60,6 +60,8 @@ namespace DamianRaczkowskiLab2PracDom
             this.zmieńHasłoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zmieńToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subjectPanel = new System.Windows.Forms.Panel();
+            this.subjectNameLabel = new System.Windows.Forms.Label();
+            this.classNameLabel = new System.Windows.Forms.Label();
             this.showLessonsButton = new System.Windows.Forms.Button();
             this.classNameTextBox = new System.Windows.Forms.TextBox();
             this.generateLessonsCheckbox = new System.Windows.Forms.CheckBox();
@@ -69,8 +71,8 @@ namespace DamianRaczkowskiLab2PracDom
             this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.beginDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.teacherGridView = new System.Windows.Forms.DataGridView();
-            this.classNameLabel = new System.Windows.Forms.Label();
-            this.subjectNameLabel = new System.Windows.Forms.Label();
+            this.classComboBox = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewUsers)).BeginInit();
             this.panelUserData.SuspendLayout();
             this.panelButtons.SuspendLayout();
@@ -110,6 +112,8 @@ namespace DamianRaczkowskiLab2PracDom
             // 
             // panelUserData
             // 
+            this.panelUserData.Controls.Add(this.label7);
+            this.panelUserData.Controls.Add(this.classComboBox);
             this.panelUserData.Controls.Add(this.parentComboBox);
             this.panelUserData.Controls.Add(this.label6);
             this.panelUserData.Controls.Add(this.label5);
@@ -150,12 +154,11 @@ namespace DamianRaczkowskiLab2PracDom
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(3, 123);
+            this.label5.Location = new System.Drawing.Point(3, 128);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(50, 16);
             this.label5.TabIndex = 11;
             this.label5.Text = "Rodzic";
-            this.label5.Visible = false;
             // 
             // label4
             // 
@@ -393,15 +396,33 @@ namespace DamianRaczkowskiLab2PracDom
             this.subjectPanel.Controls.Add(this.endDateTimePicker);
             this.subjectPanel.Controls.Add(this.beginDateTimePicker);
             this.subjectPanel.Controls.Add(this.teacherGridView);
-            this.subjectPanel.Location = new System.Drawing.Point(15, 350);
+            this.subjectPanel.Location = new System.Drawing.Point(12, 350);
             this.subjectPanel.Name = "subjectPanel";
             this.subjectPanel.Size = new System.Drawing.Size(524, 231);
             this.subjectPanel.TabIndex = 7;
             // 
+            // subjectNameLabel
+            // 
+            this.subjectNameLabel.AutoSize = true;
+            this.subjectNameLabel.Location = new System.Drawing.Point(8, 44);
+            this.subjectNameLabel.Name = "subjectNameLabel";
+            this.subjectNameLabel.Size = new System.Drawing.Size(68, 13);
+            this.subjectNameLabel.TabIndex = 10;
+            this.subjectNameLabel.Text = "Nazwa zajęć";
+            // 
+            // classNameLabel
+            // 
+            this.classNameLabel.AutoSize = true;
+            this.classNameLabel.Location = new System.Drawing.Point(8, 14);
+            this.classNameLabel.Name = "classNameLabel";
+            this.classNameLabel.Size = new System.Drawing.Size(67, 13);
+            this.classNameLabel.TabIndex = 9;
+            this.classNameLabel.Text = "Nazwa klasy";
+            // 
             // showLessonsButton
             // 
             this.showLessonsButton.Location = new System.Drawing.Point(127, 185);
-            this.showLessonsButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.showLessonsButton.Margin = new System.Windows.Forms.Padding(2);
             this.showLessonsButton.Name = "showLessonsButton";
             this.showLessonsButton.Size = new System.Drawing.Size(73, 41);
             this.showLessonsButton.TabIndex = 8;
@@ -483,23 +504,23 @@ namespace DamianRaczkowskiLab2PracDom
             this.teacherGridView.Size = new System.Drawing.Size(316, 225);
             this.teacherGridView.TabIndex = 0;
             // 
-            // classNameLabel
+            // classComboBox
             // 
-            this.classNameLabel.AutoSize = true;
-            this.classNameLabel.Location = new System.Drawing.Point(8, 14);
-            this.classNameLabel.Name = "classNameLabel";
-            this.classNameLabel.Size = new System.Drawing.Size(67, 13);
-            this.classNameLabel.TabIndex = 9;
-            this.classNameLabel.Text = "Nazwa klasy";
+            this.classComboBox.FormattingEnabled = true;
+            this.classComboBox.Location = new System.Drawing.Point(142, 187);
+            this.classComboBox.Name = "classComboBox";
+            this.classComboBox.Size = new System.Drawing.Size(185, 21);
+            this.classComboBox.TabIndex = 13;
             // 
-            // subjectNameLabel
+            // label7
             // 
-            this.subjectNameLabel.AutoSize = true;
-            this.subjectNameLabel.Location = new System.Drawing.Point(8, 44);
-            this.subjectNameLabel.Name = "subjectNameLabel";
-            this.subjectNameLabel.Size = new System.Drawing.Size(68, 13);
-            this.subjectNameLabel.TabIndex = 10;
-            this.subjectNameLabel.Text = "Nazwa zajęć";
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label7.Location = new System.Drawing.Point(6, 187);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(42, 16);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Klasa";
             // 
             // FormMain
             // 
@@ -580,6 +601,8 @@ namespace DamianRaczkowskiLab2PracDom
 		private System.Windows.Forms.Button showLessonsButton;
         private System.Windows.Forms.Label classNameLabel;
         private System.Windows.Forms.Label subjectNameLabel;
+        private System.Windows.Forms.ComboBox classComboBox;
+        private System.Windows.Forms.Label label7;
     }
 }
 
