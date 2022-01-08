@@ -1,0 +1,22 @@
+﻿@{
+	ViewData["Title"] = "Oceny";
+}
+<h2>Oceny</h2>
+@{
+	Dictionary<string, List<SchoolEJournalWeb.ViewModels.StudentGradeView>> gradeData = (Dictionary<string, List<SchoolEJournalWeb.ViewModels.StudentGradeView>>)ViewData["GradeData"];
+
+	<table class="table bg-primary">
+		<tbody>
+			@foreach(var entry in gradeData)
+			{
+				<tr>
+					<th>@entry.Key</th>
+					@foreach(var grade in entry.Value)
+					{
+						<td>@($"{grade.GradeGroupName}: {grade.Value} (Waga: {grade.Weight})")</td>
+					}
+				</tr>
+			}
+		</tbody>
+	</table>
+}
