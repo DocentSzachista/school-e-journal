@@ -31,25 +31,31 @@ namespace SchoolEJournalWeb.Controllers
 		[HttpPost]
 		public IActionResult ChangeDate(string selectedDate)
 		{
+			UserType userType = (UserType)int.Parse(HttpContext.User.Claims.ToList()[2].Value);
 			DateTime date = DateTime.Parse(selectedDate);
-			List<StudentCalendarView> listToParse = CreateCalendar(date);
+			IQueryable dataToSend = CreateCalendar(date, userType);
+			AddToViewData(dataToSend, userType);
+
+
 			ViewData["DisplayedDate"] = date.ToString("yyyy-MM-dd");
-			ViewData["CalendarData"] = listToParse;
+			ViewData["UserType"] = userType;
+			
 			return View("~/Views/User/SharedResources/CalendarView.cshtml");
 		}
 
-		public List<StudentCalendarView> CreateCalendar(DateTime date)
+		public IQueryable CreateCalendar(DateTime date, UserType userType)
 		{
 			
-			UserType userType = (UserType)int.Parse(HttpContext.User.Claims.ToList()[2].Value);
+			
 			int userId = int.Parse(HttpContext.User.Claims.ToList()[0].Value);
 			//List<string> returnList = new List<string>();
-			List<StudentCalendarView> returnList = new List<StudentCalendarView>();
 			// test section 
 			switch (userType)
 			{
 				case UserType.Student:
                 {
+						List<StudentCalendarView> returnList = new List<StudentCalendarView>();
+
 						var studentView = (from l in _context.DisplayLessons
 														   join u in _context.Users on l.ClassName equals u.Class.ClassName 
 														   join a in _context.Attendances on new { X1 = u.UserId, X2 = l.LessonId }  equals new { X1 = a.StudentId, X2 = a.LessonId }
@@ -63,12 +69,35 @@ namespace SchoolEJournalWeb.Controllers
 															   EndTime = l.EndTime.ToShortTimeString(),
 															   Attended = ConvertAttendanceToString(a.Attended)
 														   });
-						foreach( StudentCalendarView lesson in studentView)
+						/*foreach( StudentCalendarView lesson in studentView)
                         {
 							returnList.Add(lesson);
-                        }
-                }
-					break;
+                        }*/
+						return studentView;
+					}
+
+				case UserType.Teacher:
+                {
+						//List<TeacherCalendarView> returnList = new List<TeacherCalendarView>();
+						var teacherAttendanceView = (from t in _context.TeachersMemberships
+										   join s in _context.Subjects on t.TeacherId equals userId
+										   join l in _context.Lessons on s.SubjectId equals l.SubjectId
+										   join a in _context.Attendances on l.LessonId equals a.LessonId
+										   join u in _context.Users on a.StudentId equals u.UserId
+										   where  l.StartTime.Date == date.Date && u.UserId == a.StudentId
+										   select  new TeacherCalendarView { 
+											   UserName = $"{u.FirstName} {u.LastName}",
+											   Attended = a.Attended,
+											   LessonId = l.LessonId,
+											   StudentId = u.UserId 
+										   }).Distinct();
+						/* foreach (var item in teacherAttendanceView)
+						 {
+							 returnList.Add(item);
+						 }*/
+						return teacherAttendanceView;
+				}
+					
 					/*
 				default:
 				{
@@ -88,8 +117,40 @@ namespace SchoolEJournalWeb.Controllers
 					break;
 					*/
 			}
-			return returnList;
+			throw new Exception("NO datatype");
+			
 		}
+		private void AddToViewData(IQueryable data, UserType userType)
+        {
+			switch(userType)
+            {
+				case UserType.Teacher:
+                    {
+						List<TeacherCalendarView> teacherCalendars = new List<TeacherCalendarView>();
+                        foreach (var item in data)
+                        {
+							teacherCalendars.Add((TeacherCalendarView)item);
+                        }
+						ViewData["CalendarData"] = teacherCalendars;
+						break;
+                    }
+				case UserType.Parent:
+				case UserType.Student:
+                {
+						List<StudentCalendarView> teacherCalendars = new List<StudentCalendarView>();
+						foreach (var item in data)
+						{
+							teacherCalendars.Add((StudentCalendarView)item);
+						}
+						ViewData["CalendarData"] = teacherCalendars;
+						break;
+				}
+					
+            }
+        }
+
+
+
 		private static string ConvertAttendanceToString(int attendanceType)
         {
 			AttendedState state = (AttendedState)attendanceType;

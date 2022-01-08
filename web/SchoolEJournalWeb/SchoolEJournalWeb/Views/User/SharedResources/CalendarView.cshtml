@@ -1,29 +1,59 @@
 ﻿@{
-	ViewData["Title"] = "Kalendarz";
+    ViewData["Title"] = "Kalendarz";
 
 }
+@using SchoolEJournalWeb.Encryption
 
 @using (Html.BeginForm("ChangeDate", "Calendar"))
 {
 
-	<label for="selectedDate">Dzień: </label>
-	<input name="selectedDate" type="date" value="@ViewData["DisplayedDate"]" />
-	<input class="btn btn-primary" type="submit" value="Pokaż" />
-	<br />
-	<h2>Plan zajęć</h2>
-	List<SchoolEJournalWeb.ViewModels.StudentCalendarView> data = (List<SchoolEJournalWeb.ViewModels.StudentCalendarView>)ViewData["CalendarData"];
-	if (data.Count == 0)
-	{
-		<label>Brak zajęć</label>
-	}
-	else
-	{
-		<ol>
-			@foreach(var attribute in data)
-			{
-				<li> @(attribute.ToString() ) </li>	 
-			}
-		</ol>
-	}
-	
+    <label for="selectedDate">Dzień: </label>
+    <input name="selectedDate" type="date" value="@ViewData["DisplayedDate"]" />
+    <input class="btn btn-primary" type="submit" value="Pokaż" />
+    <br />
+    <h2>Plan zajęć</h2>
+    switch (ViewData["UserType"])
+    {
+        case UserType.Student:
+            List<SchoolEJournalWeb.ViewModels.StudentCalendarView> data = (List<SchoolEJournalWeb.ViewModels.StudentCalendarView>)ViewData["CalendarData"];
+            if (data.Count == 0)
+            {
+                <label>Brak zajęć</label>
+            }
+            else
+            {
+                <ol>
+                    @foreach (var attribute in data)
+                    {
+                        <li> @(attribute.ToString() ) </li>
+
+                    }
+                </ol>
+            }
+            break;
+
+        case UserType.Teacher:
+            List<SchoolEJournalWeb.ViewModels.TeacherCalendarView> teacherData = (List<SchoolEJournalWeb.ViewModels.TeacherCalendarView>)ViewData["CalendarData"];
+            if (teacherData.Count == 0)
+            {
+                <label>Brak zajęć</label>
+            }
+            else
+            {
+                @Html.BeginForm("UpdateAttendance", "Calendar")
+                { 
+                <ul>
+                    @foreach (var item in teacherData)
+                    {
+                        <li> @(item.UserName)      @(item.Attended)     @(item.StudentId)      
+                                <select asp-items="Html.GetEnumSelectList<AttendedState>()" class="form-control">
+
+                                </select>
+                        </li>
+                    }
+                </ul>
+                }
+            }
+            break;
+    }
 }
