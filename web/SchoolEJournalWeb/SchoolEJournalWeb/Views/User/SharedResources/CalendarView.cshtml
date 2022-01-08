@@ -14,6 +14,7 @@
     <h2>Plan zajęć</h2>
     switch (ViewData["UserType"])
     {
+
         case UserType.Student:
             List<SchoolEJournalWeb.ViewModels.StudentCalendarView> data = (List<SchoolEJournalWeb.ViewModels.StudentCalendarView>)ViewData["CalendarData"];
             if (data.Count == 0)
@@ -40,24 +41,53 @@
             }
             else
             {
-                
+
                 <ol>
                     @foreach (var item in teacherData)
                     {
-                        <li>  
-                            <h1> 
-                                Przedmiot    @(item.Subject) 
+                        <li>
+                            <h1>
+                                Przedmiot    @(item.Subject)
                             </h1>
                             <br />
                             <h2>
                                 Temat @( string.IsNullOrEmpty(item.Topic) ? "Brak tematu" : item.Topic)  @Html.ActionLink("Sprawdź obecność", "AttendanceCheck", "Calendar", routeValues: new { LessonId = item.LessonId }, null)
-                            </h2>     
-                           
+                            </h2>
+
                         </li>
                     }
                 </ol>
-                
+
             }
             break;
+        case UserType.Parent:
+            {
+
+                List<SchoolEJournalWeb.ViewModels.StudentCalendarView> student = (List<SchoolEJournalWeb.ViewModels.StudentCalendarView>)ViewData["CalendarData"];
+                if (student.Count == 0)
+                {
+                    <label>Brak zajęć</label>
+                }
+                else
+                {
+                    <ol>
+                        @foreach (var attribute in student)
+                        {
+                            <li>
+                                <h2> 
+                                    @(attribute.SubjectName) : @(attribute.Topic) 
+                                </h2>
+                                <br />
+                                <h3>
+                                    @(attribute.StartTime) : @(attribute.EndTime)
+                                </h3>
+                                <h4>Uczeń: @(attribute.UserName)  @(attribute.Attended) </h4>
+                            </li>
+
+                        }
+                    </ol>
+                }
+                break;
+            }
     }
 }

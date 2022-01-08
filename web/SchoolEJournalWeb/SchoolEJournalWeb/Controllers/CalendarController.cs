@@ -93,6 +93,24 @@ namespace SchoolEJournalWeb.Controllers
 					
 						return teacherAttendanceView;
 				}
+				case UserType.Parent:
+                {
+						var parentAttendanceView = (from l in _context.DisplayLessons
+													join u in _context.Users on l.ClassName equals u.Class.ClassName
+													join a in _context.Attendances on u.UserId equals a.StudentId
+													where u.ParentId == userId && l.StartTime.Date == date.Date
+													orderby l.StartTime.TimeOfDay ascending
+													select new StudentCalendarView
+													{
+														UserName = u.FirstName + " " + u.LastName,
+														SubjectName = l.SubjectName,
+														StartTime = l.StartTime.ToShortTimeString(),
+														Topic = string.IsNullOrEmpty(l.Topic) ? "Brak Tematu" : l.Topic,
+														EndTime = l.EndTime.ToShortTimeString(),
+														Attended = ConvertAttendanceToString(a.Attended)
+													}).Distinct();
+						return parentAttendanceView;
+                }
 					
 					/*
 				default:
