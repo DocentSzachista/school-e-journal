@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SchoolEJournalWeb.Encryption;
 using SchoolEJournalWeb.Models;
+using SchoolEJournalWeb.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,12 +31,15 @@ namespace SchoolEJournalWeb.Controllers
             //Console.WriteLine(loginData.Password);
             if(ModelState.IsValid)
             {
-                if(ValidateUser(loginData))
+                Credentials credentials;
+
+                if(ValidateUser(loginData, out credentials))
                 {
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name, loginData.UserId.ToString()),
-                        new Claim("role", "member")
+                        new Claim(ClaimTypes.Name, credentials.UserId.ToString()),
+                        new Claim("Name", credentials.Name),
+                        new Claim("UserType", credentials.UserType.ToString())
                     };
                     var indentity = new ClaimsIdentity(claims, "myCookie");
                     ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(indentity);
@@ -59,14 +63,17 @@ namespace SchoolEJournalWeb.Controllers
             return View();
         }
 
-        private bool ValidateUser(LoginDatum loginData)
+        private bool ValidateUser(LoginDatum loginData,  out Credentials dataBaseData)
         {
-            var dataBaseData = _context.LoginData.Single(entity => entity.Login.Equals(loginData.Login));
+             dataBaseData = (from credentials in _context.LoginData
+                                join user in _context.Users on credentials.UserId equals user.UserId
+                                where credentials.Login.Equals(loginData.Login)
+                                select new Credentials { Password = credentials.Password, Name = user.FirstName + " " + user.LastName, UserType = user.UserType, UserId = credentials.UserId }).FirstOrDefault();
+               
             
            
             if (PasswordChecker.VerifyPassword(loginData.Password, dataBaseData.Password))
             {
-                loginData.UserId = dataBaseData.UserId;
                 return true;
             }
                 return false;
