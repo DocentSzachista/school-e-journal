@@ -7,9 +7,8 @@ namespace SchoolEJournalWeb.ViewModels
 {
     public class TeacherCalendarView
     {
-        public string UserName { get; set; }
-        public int Attended { get; set; }
+        public string Topic { get; set; }
         public int LessonId { get; internal set; }
-        public int StudentId { get; internal set; }
+        public string Subject { get; set; }
     }
 }

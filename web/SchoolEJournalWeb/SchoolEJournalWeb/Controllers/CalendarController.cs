@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using SchoolEJournalWeb.Models;
 using SchoolEJournalWeb.Encryption;
 using SchoolEJournalWeb.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Http;
 
 namespace SchoolEJournalWeb.Controllers
 {
 	public class CalendarController : Controller
 	{
 		private readonly SchoolEJournalContext _context;
-
+		private int id;
 		public CalendarController(SchoolEJournalContext context)
 		{
 			_context = context;
@@ -82,19 +84,13 @@ namespace SchoolEJournalWeb.Controllers
 						var teacherAttendanceView = (from t in _context.TeachersMemberships
 										   join s in _context.Subjects on t.TeacherId equals userId
 										   join l in _context.Lessons on s.SubjectId equals l.SubjectId
-										   join a in _context.Attendances on l.LessonId equals a.LessonId
-										   join u in _context.Users on a.StudentId equals u.UserId
-										   where  l.StartTime.Date == date.Date && u.UserId == a.StudentId
+										   where  l.StartTime.Date == date.Date 
 										   select  new TeacherCalendarView { 
-											   UserName = $"{u.FirstName} {u.LastName}",
-											   Attended = a.Attended,
+											   Subject = s.SubjectName,
 											   LessonId = l.LessonId,
-											   StudentId = u.UserId 
+											   Topic = l.Topic
 										   }).Distinct();
-						/* foreach (var item in teacherAttendanceView)
-						 {
-							 returnList.Add(item);
-						 }*/
+					
 						return teacherAttendanceView;
 				}
 					
@@ -147,6 +143,65 @@ namespace SchoolEJournalWeb.Controllers
 				}
 					
             }
+        }
+
+		public IActionResult AttendanceCheck(int LessonId)
+        {
+			this.id = LessonId;
+			var lesson = (from x in _context.Lessons
+						 where x.LessonId == LessonId
+						 select x).FirstOrDefault();
+			List<StudentAttendanceView> attendances = new List<StudentAttendanceView>();
+			var teacherAttendanceView = (from l in _context.Lessons
+										 join a in _context.Attendances on l.LessonId equals a.LessonId
+										 join u in _context.Users on a.StudentId equals u.UserId
+										 where l.LessonId == LessonId
+										 select new StudentAttendanceView 
+										 {
+											Att = a.Attended,
+											AttId = a.AttendanceId,
+											UserName =  $"{u.FirstName} {u.LastName} "
+										 
+										 }).Distinct();
+			foreach(var item in teacherAttendanceView)
+            {
+				attendances.Add(item);
+            }
+			UpdateLessonView dataToSend = new() ;
+			dataToSend.attendances = attendances;
+			dataToSend.Lesson = lesson;
+				
+
+			//ViewData["UpdateData"] = dataToSend ;	
+			return View("~/Views/User/SharedResources/CheckAttendanceView.cshtml", dataToSend);
+        }
+		[HttpPost]
+		public IActionResult AttendanceCheck(UpdateLessonView view)
+        {
+
+			Console.WriteLine($"{Request.Form["Topic"]} xDDD");
+			var lesson = (from l in _context.Lessons
+						  where l.LessonId == int.Parse(Request.Form["id"])
+						  select l).FirstOrDefault();
+			lesson.Topic = Request.Form["Topic"];
+			var teacherAttendanceView = (from l in _context.Lessons
+										 join a in _context.Attendances on l.LessonId equals a.LessonId
+										 join u in _context.Users on a.StudentId equals u.UserId
+										 where l.LessonId == int.Parse(Request.Form["id"])
+										 select a).Distinct();
+            foreach (var item in Request.Form.Keys)
+            {
+				Console.WriteLine(item);
+            }
+			
+			
+			foreach (var item in teacherAttendanceView)
+			{
+				string key = $"attendence-{item.AttendanceId}";
+				item.Attended = int.Parse(Request.Form[key]);
+			}
+			_context.SaveChanges();
+			return (ShowCalendar());
         }
 
 

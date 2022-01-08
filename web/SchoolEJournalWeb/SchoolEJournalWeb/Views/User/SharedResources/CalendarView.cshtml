@@ -40,19 +40,23 @@
             }
             else
             {
-                @Html.BeginForm("UpdateAttendance", "Calendar")
-                { 
-                <ul>
+                
+                <ol>
                     @foreach (var item in teacherData)
                     {
-                        <li> @(item.UserName)      @(item.Attended)     @(item.StudentId)      
-                                <select asp-items="Html.GetEnumSelectList<AttendedState>()" class="form-control">
-
-                                </select>
+                        <li>  
+                            <h1> 
+                                Przedmiot    @(item.Subject) 
+                            </h1>
+                            <br />
+                            <h2>
+                                Temat @( string.IsNullOrEmpty(item.Topic) ? "Brak tematu" : item.Topic)  @Html.ActionLink("Sprawdź obecność", "AttendanceCheck", "Calendar", routeValues: new { LessonId = item.LessonId }, null)
+                            </h2>     
+                           
                         </li>
                     }
-                </ul>
-                }
+                </ol>
+                
             }
             break;
     }
