@@ -99,6 +99,8 @@ namespace SchoolEJournalWeb.Models
 
                 entity.ToView("DisplayLessons");
 
+               
+
                 entity.Property(e => e.ClassName)
                     .IsRequired()
                     .HasMaxLength(15)

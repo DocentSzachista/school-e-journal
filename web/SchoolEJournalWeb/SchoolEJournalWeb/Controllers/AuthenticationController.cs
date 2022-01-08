@@ -68,7 +68,13 @@ namespace SchoolEJournalWeb.Controllers
              dataBaseData = (from credentials in _context.LoginData
                                 join user in _context.Users on credentials.UserId equals user.UserId
                                 where credentials.Login.Equals(loginData.Login)
-                                select new Credentials { Password = credentials.Password, Name = user.FirstName + " " + user.LastName, UserType = user.UserType, UserId = credentials.UserId }).FirstOrDefault();
+                                select new Credentials 
+                                { 
+                                    Password = credentials.Password, 
+                                    Name = user.FirstName + " " + user.LastName, 
+                                    UserType = user.UserType, 
+                                    UserId = credentials.UserId }
+                                ).FirstOrDefault();
                
             
            

@@ -20,7 +20,7 @@ namespace SchoolEJournalWeb.Encryption
                     return false;
                 return BCrypt.Net.BCrypt.Verify(providedPassword, databasePasswordHash);
             }
-            catch(Exception e)
+            catch
             {
                 Console.WriteLine("Hashes do not match");
                 return false;

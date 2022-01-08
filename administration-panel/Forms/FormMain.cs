@@ -365,7 +365,7 @@ namespace DamianRaczkowskiLab2PracDom
                                              this.textBoxEmail.Text, this.comboBoxUserType.SelectedItem.ToString(), this.parentComboBox.SelectedValue.ToString(), this.classComboBox.SelectedValue.ToString()};
                     else
                         return new string[]{ this.textBoxFirstName.Text, this.textBoxSecondName.Text, this.textBoxLastName.Text, this.textBoxPhoneNumber.Text,
-                                             this.textBoxEmail.Text, this.comboBoxUserType.SelectedItem.ToString(), this.parentComboBox.SelectedValue.ToString(), this.classComboBox.SelectedValue.ToString() };
+                                             this.textBoxEmail.Text, this.comboBoxUserType.SelectedItem.ToString(), null, this.classComboBox.SelectedValue.ToString() };
 
                 case DataType.Klasy:
                     string className = this.textBoxClassName.Text;

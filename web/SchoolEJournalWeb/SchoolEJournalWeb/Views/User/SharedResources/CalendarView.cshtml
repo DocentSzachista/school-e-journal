@@ -1,15 +1,17 @@
 ﻿@{
 	ViewData["Title"] = "Kalendarz";
+
 }
 
 @using (Html.BeginForm("ChangeDate", "Calendar"))
 {
+
 	<label for="selectedDate">Dzień: </label>
 	<input name="selectedDate" type="date" value="@ViewData["DisplayedDate"]" />
 	<input class="btn btn-primary" type="submit" value="Pokaż" />
 	<br />
 	<h2>Plan zajęć</h2>
-	List<string> data = (List<string>)ViewData["CalendarData"];
+	List<SchoolEJournalWeb.ViewModels.StudentCalendarView> data = (List<SchoolEJournalWeb.ViewModels.StudentCalendarView>)ViewData["CalendarData"];
 	if (data.Count == 0)
 	{
 		<label>Brak zajęć</label>
@@ -17,9 +19,9 @@
 	else
 	{
 		<ol>
-			@foreach(string val in data)
+			@foreach(var attribute in data)
 			{
-				<li>@val</li>
+				<li> @(attribute.ToString() ) </li>	 
 			}
 		</ol>
 	}
