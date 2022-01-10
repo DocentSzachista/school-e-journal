@@ -1,0 +1,39 @@
+﻿@{
+	ViewData["Title"] = "Oceny";
+}
+<h2>Oceny</h2>
+@{
+	@using SchoolEJournalWeb.Encryption
+	@using SchoolEJournalWeb.ViewModels
+
+	UserType userType = (UserType)ViewData["UserType"];
+	switch (userType)
+	{
+		case UserType.Student:
+			Dictionary<string, List<StudentGradeView>> gradeData = (Dictionary<string, List<StudentGradeView>>)ViewData["GradeData"];
+			<table class="table bg-primary">
+				<tbody>
+					@foreach (var entry in gradeData)
+					{
+						<tr>
+							<th>@entry.Key</th>
+							@foreach (var grade in entry.Value)
+							{
+								<td>@($"{grade.GradeGroupName}: {grade.Value} (Waga: {grade.Weight})")</td>
+							}
+						</tr>
+					}
+				</tbody>
+			</table>
+			break;
+		case UserType.Teacher:
+			List<TeacherSubjectGradeView> subjectData = (List<TeacherSubjectGradeView>)ViewData["GradeData"];
+			<ul>
+				@foreach (var item in subjectData)
+				{
+					<li>@Html.ActionLink($"{item.SubjectName} ({item.ClassName})", "InspectSubject", "Grade", routeValues: new { subjectId = item.SubjectId, subjectName = item.SubjectName, className  = item.ClassName})</li>
+				}
+			</ul>
+			break;
+	}
+}
