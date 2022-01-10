@@ -15,6 +15,7 @@ namespace SchoolEJournalWeb.Encryption
         [Display(Name ="Spóźnony")]
         Late = 2,
         [Display(Name = "Nieobecny")]
-        Absent = 3
+        Absent = 3,
+        Justified = 4
     }
 }

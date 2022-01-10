@@ -1,8 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Witaj";
 }
-<h1> Cześć  @ViewData["UserName"] </h1>
-@Html.ActionLink("Zmień hasło", "ChangePassword", "User")
-@Html.ActionLink("Zmień swoje dane", "EditData", "User")
-@Html.ActionLink("Wyświetl kalendarz", "ShowCalendar", "Calendar")
-@Html.ActionLink("Wyświetl oceny", "ShowGrades", "Grade")
+
+    <h1 class="justify-content-center"> Cześć  @ViewData["UserName"] </h1>
+
+            @Html.ActionLink("Zmień hasło", "ChangePassword", "User",null, new {@class="btn btn-primary" })
+            @Html.ActionLink("Zmień swoje dane", "EditData", "User", null, new { @class = "btn btn-secondary" })
+            @Html.ActionLink("Wyświetl kalendarz", "ShowCalendar", "Calendar", null, new { @class = "btn btn-success" })
+         
+            @Html.ActionLink("Wyświetl oceny", "ShowGrades", "Grade", null, new { @class = "btn btn-info" }) 

@@ -71,16 +71,13 @@ namespace SchoolEJournalWeb.Controllers
 															   EndTime = l.EndTime.ToShortTimeString(),
 															   Attended = ConvertAttendanceToString(a.Attended)
 														   });
-						/*foreach( StudentCalendarView lesson in studentView)
-                        {
-							returnList.Add(lesson);
-                        }*/
+				
 						return studentView;
 					}
 
 				case UserType.Teacher:
                 {
-						//List<TeacherCalendarView> returnList = new List<TeacherCalendarView>();
+					
 						var teacherAttendanceView = (from t in _context.TeachersMemberships
 										   join s in _context.Subjects on t.TeacherId equals userId
 										   join l in _context.Lessons on s.SubjectId equals l.SubjectId
@@ -112,24 +109,6 @@ namespace SchoolEJournalWeb.Controllers
 						return parentAttendanceView;
                 }
 					
-					/*
-				default:
-				{
-						var query =
-							from l in _context.DisplayLessons
-							join u in _context.Users
-							on l.ClassName equals u.Class.ClassName
-							where l.StartTime.Date == date.Date
-							orderby l.StartTime.TimeOfDay ascending
-							select $"{l.SubjectName} ({l.StartTime.ToShortTimeString()} - {l.EndTime.ToShortTimeString()}) Temat: {(string.IsNullOrEmpty(l.Topic) ? "Brak tematu" : l.Topic)}";
-
-
-						foreach (string lessonText in query)
-
-							returnList.Add(lessonText);
-				}
-					break;
-					*/
 			}
 			throw new Exception("NO datatype");
 			
@@ -237,6 +216,8 @@ namespace SchoolEJournalWeb.Controllers
 					return "Obecny";
 				case AttendedState.Late:
 					return "Spóźnony";
+				case AttendedState.Justified:
+					return "Usprawiedliwony";
 				default:
 					return "Niesprawdzona";
             }

@@ -5,48 +5,51 @@
     @model SchoolEJournalWeb.Models.User
 }
 
+<div class="container h-100">
 
-@using (Html.BeginForm("EditData", "User", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    <div class="text-center">
-        
+    <div class="row h-100 justify-content-center align-items-center">
+        @using (Html.BeginForm("EditData", "User", FormMethod.Post, "form-horizontal"))
+        {
+            @Html.AntiForgeryToken()
 
-        
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                @Html.LabelFor(model => model.FirstName)
-                @Html.EditorFor(model => model.FirstName, new { @class = "form-control" })
-            </div>
-            <div class="form-group col-md-6">
-                @Html.LabelFor(model => model.LastName)
-                @Html.EditorFor(model => model.LastName, new { @class = "form-control" })
+
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.FirstName)
+                    @Html.EditorFor(model => model.FirstName, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.LastName)
+                    @Html.EditorFor(model => model.LastName, new { @class = "form-control" })
+                </div>
+
             </div>
 
-        </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.SecondName)
+                    @Html.EditorFor(model => model.SecondName, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.PhoneNumber)
+                    @Html.EditorFor(model => model.PhoneNumber, new { @class = "form-control" })
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(model => model.Email)
+                    @Html.EditorFor(model => model.Email, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <input class="btn btn-primary" type="submit" value="Zaktualizuj" />
+                    <a href="@Url.Action("Index", "User")"><input class="btn btn-dark" type="button" value="Cofnij" /></a>
+                </div>
+            </div>
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                @Html.LabelFor(model => model.SecondName)
-                @Html.EditorFor(model => model.SecondName, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                @Html.LabelFor(model => model.PhoneNumber)
-                @Html.EditorFor(model => model.PhoneNumber, new { @class = "form-control" })
-            </div>
-            <div class="form-group col-md-6">
-                @Html.LabelFor(model => model.Email)
-                @Html.EditorFor(model => model.Email, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-12">
-                <input class="btn btn-primary" type="submit" value="Zaktualizuj" />
-                <a href ="@Url.Action("Index", "User")" ><input class="btn btn-dark" type="button" value="Cofnij" /></a>
-            </div>
-        </div>
+        }
     </div>
-}
+</div>
