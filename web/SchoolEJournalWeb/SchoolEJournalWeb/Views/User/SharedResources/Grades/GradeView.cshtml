@@ -27,13 +27,24 @@
 			</table>
 			break;
 		case UserType.Teacher:
-			List<TeacherSubjectGradeView> subjectData = (List<TeacherSubjectGradeView>)ViewData["GradeData"];
-			<ul>
-				@foreach (var item in subjectData)
-				{
-					<li>@Html.ActionLink($"{item.SubjectName} ({item.ClassName})", "InspectSubject", "Grade", routeValues: new { subjectId = item.SubjectId, subjectName = item.SubjectName, className  = item.ClassName})</li>
-				}
-			</ul>
+			Dictionary<Subject, List<TeacherGradeGroupView>> data = (Dictionary<Subject, List<TeacherGradeGroupView>>)ViewData["GradeData"];
+			foreach(var entry in data)
+			{
+				@($"{entry.Key.SubjectName} ({entry.Key.Class.ClassName})")
+				<ul>
+					@foreach(var group in entry.Value)
+					{
+						<li>
+							@group.GradeGroupName
+							@Html.ActionLink("Szczegóły", "InspectGradeGroup", "Grade", group)
+							@Html.ActionLink("Usuń", "DeleteGradeGroup", "Grade", group)
+						</li>
+					}
+				<li>
+					@Html.ActionLink("Nowa grupa ocen...", "CreateNewGradeGroup", "Grade", new { subjectId = entry.Key.SubjectId })
+				</li>
+				</ul>
+			}
 			break;
 	}
 }

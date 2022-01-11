@@ -1,0 +1,27 @@
+﻿@{
+	ViewData["Title"] = "Szczegóły grupy";
+}
+@model SchoolEJournalWeb.ViewModels.TeacherGradeGroupView
+
+@using (Html.BeginForm("SaveGradeGroup", "Grade", Model)) 
+{
+	<h2>@($"Oceny z {Model.GradeGroupName}")</h2>
+	<h3>@($"{Model.SubjectName} ({Model.ClassName})")</h3>
+	<label>Nowa nazwa grupy: </label>
+	@Html.TextBoxFor(model => model.GradeGroupName, new { @class = "form-control" })
+	<label>Waga: </label>
+	@Html.TextBoxFor(model => model.GradeGroupWeight, new { @class = "form-control" })
+
+	@*<ul>
+		@foreach(var gradeEntry in Model.Grades)
+		{
+			<li>
+				<label>@($"{gradeEntry.Key.FirstName} {gradeEntry.Key.LastName}")</label>
+				@Html.TextBoxFor(model => model.Grades[gradeEntry.Key].Value, new { @class = "form-control" })
+			</li>
+		}
+	</ul>*@
+
+	<button class="btn btn-primary" type="submit">Zapisz zmiany</button>
+}
+

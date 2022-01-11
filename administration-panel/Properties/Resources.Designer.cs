@@ -61,7 +61,7 @@ namespace DamianRaczkowskiLab2PracDom.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Server=DESKTOP-HP8R2FA\KREDEKSQL;Database=SchoolEJournal;Trusted_Connection=True;.
+        ///   Looks up a localized string similar to Server=DESKTOP-59VE1DH\SCHOOLJOURNAL;Database=SchoolEJournal;Trusted_Connection=True;.
         /// </summary>
         internal static string ConnectionString {
             get {

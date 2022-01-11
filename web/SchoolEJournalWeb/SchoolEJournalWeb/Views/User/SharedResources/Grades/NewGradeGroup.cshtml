@@ -1,0 +1,13 @@
+﻿@{
+	ViewData["Title"] = "Nowa grupa ocen";
+}
+
+@model SchoolEJournalWeb.ViewModels.TeacherGradeGroupView
+
+@using (Html.BeginForm("AddNewGroup", "Grade", Model)) {
+	<label>Nazwa grupy</label>
+	@Html.TextBoxFor(model => model.GradeGroupName);
+	<label>Waga ocen</label>
+	@Html.TextBoxFor(model => model.GradeGroupWeight);
+	<button class="btn btn-primary" type="submit">Stwórz</button>
+}
