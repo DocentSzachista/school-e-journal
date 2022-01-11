@@ -11,10 +11,16 @@ namespace SchoolEJournalWeb.ViewModels
 		public string GradeGroupName { get; set; }
 		public int GradeGroupWeight { get; set; }
 		public int GradeGroupId { get; set; }
-		public Dictionary<User, Grade> Grades { get; set; }
+		public List<UserGrade> Grades { get; set; }
 		public int ClassId { get; set; }
 		public string ClassName { get; set; }
 		public string SubjectName { get; set; }
 		public int SubjectId { get; set; }
+
+		public class UserGrade
+		{
+			public User user;
+			public Grade grade;
+		}
 	}
 }

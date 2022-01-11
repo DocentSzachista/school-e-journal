@@ -82,18 +82,12 @@ namespace SchoolEJournalWeb.Controllers
 
 			foreach(var subject in sub)
 			{
-				if(subject.Class == null)
+				if (subject.Class == null)
 				{
 					subject.Class = (from s in _context.Subjects
 									 where s.SubjectId == subject.SubjectId
 									 select s.Class).First();
 				}
-
-				var studentsQuery = from u in _context.Users
-									where u.ClassId == subject.ClassId
-									select u;
-
-				List<User> students = new List<User>(studentsQuery);
 
 				List<TeacherGradeGroupView> views = new List<TeacherGradeGroupView>();
 				var gradeGroups = from gg in _context.GradesGroups
@@ -106,24 +100,12 @@ namespace SchoolEJournalWeb.Controllers
 									  ClassName = s.Class.ClassName,
 									  GradeGroupId = gg.Id,
 									  GradeGroupName = gg.Name,
-									  Grades = new Dictionary<User, Grade>(),
+									  Grades = new(),
 									  SubjectName = s.SubjectName,
 									  GradeGroupWeight = gg.Weight
 								  };
 
 				views.AddRange(gradeGroups);
-
-				foreach(var group in views)
-				{
-					foreach(var student in students)
-					{
-						var grade = (from g in _context.Grades
-									 where g.StudentId == student.UserId && g.GradeGroupId == @group.GradeGroupId
-									 select g).FirstOrDefault();
-
-						group.Grades.Add(student, grade);
-					}
-				}
 
 				if(views.Count > 0)
 				{
@@ -136,7 +118,48 @@ namespace SchoolEJournalWeb.Controllers
 
 		public IActionResult InspectGradeGroup(TeacherGradeGroupView gradeGroupView)
 		{
+			gradeGroupView.Grades = GetGroupGrades(gradeGroupView.GradeGroupId);
 			return View("~/Views/User/SharedResources/Grades/GradeGroupView.cshtml", gradeGroupView);
+		}
+
+		private List<TeacherGradeGroupView.UserGrade> GetGroupGrades(int gradeGroupId)
+		{
+			List<TeacherGradeGroupView.UserGrade> returnDict = new();
+
+			GradesGroup gradesGroup = (from gg in _context.GradesGroups
+									   where gg.Id == gradeGroupId
+									   select gg).First();
+
+			var studentQuery = from u in _context.Users
+							   join s in _context.Subjects
+							   on u.ClassId equals s.ClassId
+							   where u.ClassId == s.ClassId
+							   orderby u.LastName ascending
+							   select u;
+
+			List<User> students = new List<User>(studentQuery);
+
+			foreach(var student in students)
+			{
+				var grade = (from g in _context.Grades
+							 where g.GradeGroupId == gradeGroupId && g.StudentId == student.UserId
+							 select g).FirstOrDefault();
+
+				if (returnDict.Find(ug => ug.user.UserId == student.UserId) == null)
+					returnDict.Add(new TeacherGradeGroupView.UserGrade()
+					{
+						grade = grade != null ? grade : new Grade()
+						{
+							GradeGroupId = gradeGroupId,
+							StudentId = student.UserId,
+							Value = 0,
+							GradeId = -1
+						},
+						user = student
+					});
+			}
+
+			return returnDict;
 		}
 
 		public IActionResult CreateNewGradeGroup(int subjectId)
@@ -164,6 +187,7 @@ namespace SchoolEJournalWeb.Controllers
 			return ShowGrades();
 		}
 
+		[HttpPost]
 		public IActionResult SaveGradeGroup(TeacherGradeGroupView gradeGroupView)
 		{
 			GradesGroup group = (from gg in _context.GradesGroups
@@ -172,9 +196,25 @@ namespace SchoolEJournalWeb.Controllers
 
 			group.Name = gradeGroupView.GradeGroupName;
 			group.Weight = gradeGroupView.GradeGroupWeight;
-			//group.Grades.Clear();
-			//foreach(var userGradePair in gradeGroupView.Grades)
-				//group.Grades.Add(userGradePair.Value);
+
+			gradeGroupView.Grades = GetGroupGrades(gradeGroupView.GradeGroupId);
+
+			// Do tego miejsca wszystko się dobrze zapisuje
+
+			for (int i = 0; i < gradeGroupView.Grades.Count; i++)
+			{
+				Grade grade = gradeGroupView.Grades[i].grade;
+				grade.Value = int.Parse(Request.Form[$"grade-{i}"]);
+
+				if (grade.GradeId == -1)
+					_context.Grades.Add(new Grade() 
+					{
+						GradeGroupId = grade.GradeGroupId,
+						StudentId = grade.StudentId,
+						Value = grade.Value,
+					});
+			}
+				
 
 			_context.SaveChanges();
 			return InspectGradeGroup(gradeGroupView);

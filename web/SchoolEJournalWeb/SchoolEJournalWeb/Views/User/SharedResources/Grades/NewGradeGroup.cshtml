@@ -6,8 +6,8 @@
 
 @using (Html.BeginForm("AddNewGroup", "Grade", Model)) {
 	<label>Nazwa grupy</label>
-	@Html.TextBoxFor(model => model.GradeGroupName);
+	@Html.TextBoxFor(model => model.GradeGroupName, new { @class = "form-control" });
 	<label>Waga ocen</label>
-	@Html.TextBoxFor(model => model.GradeGroupWeight);
+	@Html.TextBoxFor(model => model.GradeGroupWeight, new { @class = "form-control", @type = "number" });
 	<button class="btn btn-primary" type="submit">Stwórz</button>
 }
