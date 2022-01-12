@@ -10,14 +10,13 @@
 	<label>Nowa nazwa grupy: </label>
 	@Html.TextBoxFor(model => model.GradeGroupName, new { @class = "form-control" })
 	<label>Waga: </label>
-	@Html.TextBoxFor(model => model.GradeGroupWeight, new { @class = "form-control", @type = "number" })
-
+	@Html.TextBoxFor(model => model.GradeGroupWeight, new { @class = "form-control", @type = "number", @min = 0 })
 	<ul>
 		@for(int i = 0; i < Model.Grades.Count; i++)
 		{
 			<li>
 				<label>@($"{Model.Grades[i].user.FirstName} {Model.Grades[i].user.LastName}")</label>
-				<input name=@($"grade-{i}") type="number" class="form-control" min="1" value="@Math.Max(1, @Model.Grades[i].grade.Value)"/>
+				<input name=@($"grade-{i}") type="number" class="form-control" min="0" max="6" value="@Model.Grades[i].grade.Value"/>
 			</li>
 		}
 	</ul>

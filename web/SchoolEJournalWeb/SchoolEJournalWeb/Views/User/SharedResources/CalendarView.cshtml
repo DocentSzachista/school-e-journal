@@ -51,7 +51,7 @@
                             </h1>
                             <br />
                             <h2>
-                                Temat @( string.IsNullOrEmpty(item.Topic) ? "Brak tematu" : item.Topic)  @Html.ActionLink("Sprawdź obecność", "AttendanceCheck", "Calendar", routeValues: new { LessonId = item.LessonId }, null)
+                                Temat @( string.IsNullOrEmpty(item.Topic) ? "Brak tematu" : item.Topic)  @Html.ActionLink("Zarządanie lekcją", "AttendanceCheck", "Calendar", routeValues: new { LessonId = item.LessonId }, null)
                             </h2>
 
                         </li>

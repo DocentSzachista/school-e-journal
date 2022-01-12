@@ -201,19 +201,27 @@ namespace SchoolEJournalWeb.Controllers
 
 			for (int i = 0; i < gradeGroupView.Grades.Count; i++)
 			{
+				int value = int.Parse(Request.Form[$"grade-{i}"]);
 				Grade grade = gradeGroupView.Grades[i].grade;
-				grade.Value = int.Parse(Request.Form[$"grade-{i}"]);
+				if (value <= 0)
+				{
+					if(grade.GradeId != -1)
+						_context.Grades.Remove(grade);
+				}
+				else
+				{
+					grade.Value = value;
+					if (grade.GradeId == -1)
+						_context.Grades.Add(new Grade()
+						{
+							GradeGroupId = grade.GradeGroupId,
+							StudentId = grade.StudentId,
+							Value = grade.Value,
+						});
 
-				if (grade.GradeId == -1)
-					_context.Grades.Add(new Grade() 
-					{
-						GradeGroupId = grade.GradeGroupId,
-						StudentId = grade.StudentId,
-						Value = grade.Value,
-					});
+				}
 			}
-				
-
+			
 			_context.SaveChanges();
 			return InspectGradeGroup(gradeGroupView);
 		}
