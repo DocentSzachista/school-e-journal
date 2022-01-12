@@ -85,15 +85,14 @@ namespace Database
             {
                 updateSql.CommandType = CommandType.StoredProcedure;
                 updateSql.Parameters.AddWithValue("@subjectId", index);
-                updateSql.Parameters.AddWithValue("@subjectName", data[0]);
-                updateSql.Parameters.AddWithValue("@className", data[1]);
-                updateSql.Parameters.AddWithValue("@teacherId", int.Parse(data[2]));
+                updateSql.Parameters.AddWithValue("@subjectName", data[1]);
+                updateSql.Parameters.AddWithValue("@className", data[2]);
+                updateSql.Parameters.AddWithValue("@teacherId", int.Parse(data[0]));
                 if (data.Length > 3)
                 {
-                    updateSql.Parameters.AddWithValue("@startDate", int.Parse(data[3]));
-                    updateSql.Parameters.AddWithValue("@startTime", int.Parse(data[4]));
-                    updateSql.Parameters.AddWithValue("@endDate", int.Parse(data[5]));
-                    updateSql.Parameters.AddWithValue("@endTime", int.Parse(data[6]));
+                    updateSql.Parameters.AddWithValue("@startDate", data[3]);
+                    updateSql.Parameters.AddWithValue("@endDay", data[4]);
+                    updateSql.Parameters.AddWithValue("@endDate", data[5]);
                 }
                 updateSql.Parameters.AddWithValue("@ACTION", "UPDATE");
                 updateSql.ExecuteNonQuery();

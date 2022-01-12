@@ -17,7 +17,7 @@
 		{
 			<li>
 				<label>@($"{Model.Grades[i].user.FirstName} {Model.Grades[i].user.LastName}")</label>
-				<input name=@($"grade-{i}") type="number" class="form-control" value="@Model.Grades[i].grade.Value"/>
+				<input name=@($"grade-{i}") type="number" class="form-control" min="1" value="@Math.Max(1, @Model.Grades[i].grade.Value)"/>
 			</li>
 		}
 	</ul>

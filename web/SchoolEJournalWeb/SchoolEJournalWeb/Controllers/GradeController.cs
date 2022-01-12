@@ -107,10 +107,8 @@ namespace SchoolEJournalWeb.Controllers
 
 				views.AddRange(gradeGroups);
 
-				if(views.Count > 0)
-				{
-					returnDict.Add(subject, views);
-				}
+
+				returnDict.Add(subject, views);
 			}
 
 			return returnDict;

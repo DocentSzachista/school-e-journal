@@ -280,8 +280,14 @@ namespace DamianRaczkowskiLab2PracDom
                         MessageBox.Show("Nie uzupełniłeś wszystkich pól");
                         return;
                     }
-                    string classId = this.classComboBox.SelectedValue.ToString();
-                    string userType = this.comboBoxUserType.SelectedItem.ToString();
+                    string classId = null;
+                    if(this.classComboBox.SelectedIndex != -1 )
+                            classId = this.classComboBox.SelectedValue.ToString();
+                    string userType = null;
+                    if (this.comboBoxUserType.SelectedIndex != -1)
+                        userType = this.comboBoxUserType.SelectedItem.ToString();
+                    else
+                        MessageBox.Show("No userType set");
                     string[] userData;
                     if (this.parentComboBox.SelectedIndex != -1)
                     {
@@ -290,7 +296,7 @@ namespace DamianRaczkowskiLab2PracDom
                     }
                     else
                     {
-                        userData = new string[] { firstName, secondName, lastName, phoneNumber, email, userType, null, null };
+                        userData = new string[] { firstName, secondName, lastName, phoneNumber, email, userType, null, classId };
                     }
                     this._usedDataObject.InsertData(userData);
                     break;
